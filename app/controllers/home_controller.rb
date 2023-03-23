@@ -1,7 +1,14 @@
 class HomeController < ApplicationController
+  before_action :authenticate_user!
   def index
-    if user_signed_in?
-      redirect_to user_pages_path
-    end
+  end
+  def expenses
+    
+  end
+  def incomes
+
+  end
+  def calendar
+    
   end
 end

@@ -1,0 +1,7 @@
+<%= form_with model: @category , url: '/categories' do |form| %>
+  <div class="form-outline mb-4 w-25">
+      <%= form.text_field :name,class:'form-control form-control-lg' %>
+      <%= form.label :name,class: 'form-label' %>
+  </div>
+  <%= form.submit "Create Category",class:"btn btn-primary" %>
+<% end  %>

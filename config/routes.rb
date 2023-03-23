@@ -1,16 +1,14 @@
 Rails.application.routes.draw do
-  # root 'home#index'
-
   devise_for :users
+
   devise_scope :user do
     root 'devise/sessions#new'
     get 'users',to: 'devise/registrations#new'
   end
 
-  resources :user_pages, only: [:index] do 
-    collection do
-  # get '/user_pages', to: 'user_pages#index', as: 'user_pages' do
-      resources :expenses
-    end
-  end
+  get 'home', to: 'home#index'
+  get 'expenses', to: 'home#expenses'
+  get 'incomes', to: 'home#incomes'
+  get 'calendar_view', to: 'home#calendar'
+  resources :categories, only: [:new,:create,:show,:destroy]
 end
