@@ -10,9 +10,10 @@ class CategoriesController < ApplicationController
     @category = @user.categories.create(category_params)
 
     if @category.save
-      redirect_to root_path
+      redirect_to category_path(@category), notice: 'Category successfully created.'
     else
-      redirect_to new_category_path
+      # render :new
+      redirect_to new_category_path, alert: 'Some issue in creating Category.Try Again...'
     end
   end
 
@@ -21,10 +22,17 @@ class CategoriesController < ApplicationController
     @transactions = @category.transactions
   end
 
+  def update
+
+  end
+
   def destroy
     @category = UserCategory.find_by_id(params[:id])
-    @category.destroy
-    redirect_to root_path
+    if @category.destroy
+      redirect_to root_path, notice: 'Category Successfully Deleted.'
+    else
+      redirect_to root_path, alert: 'Category Deletion Failed.'
+    end
   end
 
   private
