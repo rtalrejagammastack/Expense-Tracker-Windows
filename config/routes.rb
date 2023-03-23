@@ -10,5 +10,5 @@ Rails.application.routes.draw do
   get 'expenses', to: 'home#expenses'
   get 'incomes', to: 'home#incomes'
   get 'calendar_view', to: 'home#calendar'
-  resources :categories, only: [:new,:create,:show,:destroy]
+  resources :categories
 end
