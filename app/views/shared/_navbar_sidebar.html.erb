@@ -11,17 +11,19 @@
           <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
             <li>
               <div class="d-flex justify-content-center">
-                <%= link_to new_category_path, class:"btn btn-primary rounded-circle shadow-lg" do %>
+                <%= link_to new_category_path, class:"btn btn-success rounded-circle shadow-lg" do %>
                   <i class="fas fa-plus"></i>
                 <% end  %>
               </div>
             </li>
-            <% categories.each do |category| %>
-              <li>
-                <%= link_to "#{category.name}",category_path(category),class:"dropdown-item" %>
-                <%= link_to "Edit", edit_category_path(category) %>
-                <%= link_to "Delete", category_path(category),method: :delete %>
-              </li>
+            <% user_categories.each do |category| %>
+              <% unless category.id.nil? %>
+                <li>
+                  <%= link_to "#{category.name}",category_path(category),class:"dropdown-item" %>
+                  <%= link_to "Edit", edit_category_path(category) %>
+                  <%= link_to "Delete", category_path(category),method: :delete %>
+                </li>
+              <% end %>
             <% end %>
           </ul>
         </div>
@@ -109,6 +111,13 @@
 <main style="margin-top: 58px;">
   <div class="container pt-4">
     <%= yield %>
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
   </div>
 </main>
+  <div class="fixed-bottom d-flex justify-content-end mr-2 pr-3 pb-3">
+    <%= link_to "#", class:"btn btn-success rounded-circle shadow-lg" do %>
+      <i class="fas fa-plus"></i>
+    <% end %>
+  </div>
 <!--Main layout-->

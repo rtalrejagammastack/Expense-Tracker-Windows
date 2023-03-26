@@ -1,0 +1,40 @@
+<script>
+  $(document).ready(function() {
+    $('#edit-btn').click(function() {
+      $('#category-name').prop('readonly', false);
+      $('#category-name').focus();
+      $('#edit-btn').hide();
+      $('#save-btn, #cancel-btn').show();
+    });
+    
+    $('#cancel-btn').click(function() {
+      $('#category-name').prop('readonly', true);
+      $('#edit-btn').show();
+      $('#save-btn, #cancel-btn').hide();
+    });
+
+    $("#save-btn").click(function(e) {
+      e.preventDefault(); 
+
+      $.ajax({
+        
+        url: "/categories/<%= @category.id %>",
+        method: "PATCH",
+        data: { some: "data" },
+        success: function(response) {
+          console.log("Success!");
+          console.log(response);
+        },
+        error: function(xhr, status, error) {
+          console.log("Error!ggg");
+          console.log(error);
+        }
+      });
+    });
+  });
+
+
+
+  $("#item-<%= @item.id %> .name")
+  .text("<%= j @item.name %>")
+  .addClass("text-success");

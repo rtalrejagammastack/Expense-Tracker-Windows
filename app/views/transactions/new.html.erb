@@ -1,0 +1,12 @@
+<h1 class="text-center mb-4"> New Transaction </h1>
+<div class="d-flex justify-content-around mb-4">
+  <%= link_to "Expense",new_transaction_path(type: "Expense"), class:"btn btn-primary" %>
+  <%= link_to "Income", new_transaction_path(type: "Income"), class:"btn btn-primary" %>
+</div>
+
+<% if TransactionType.all.where("name=?",params[:type]).first  %>
+  <%= render partial:'form' , locals:{ transaction: @transaction, type: params[:type]}  %>
+<% elsif params[:type]==nil %>
+<% else %>
+  <h1>Not a Right Type.</h1>
+<% end  %>

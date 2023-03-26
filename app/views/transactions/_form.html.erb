@@ -1,0 +1,72 @@
+<%= form_with model:transaction do |form| %>
+  <div class="row">
+    <div class="col-md-4 mb-4">
+      <div class="form-outline">
+        <%= form.text_field :title, autofocus: true, class:"form-control form-control-lg" %>
+        <%= form.label :title, class:"form-label" %>
+      </div>
+    </div>
+    <div class="col-md-4 mb-4">
+      <div class="form-outline">
+        <% if type == "Expense" %>
+          <%= form.text_field :receiver_name, autofocus: true, class:"form-control form-control-lg" %>
+          <%= form.label :receiver_name, "Payee", class:"form-label" %>
+        <% elsif type == "Income" %>
+          <%= form.text_field :payer_name, autofocus: true, class:"form-control form-control-lg" %>
+          <%= form.label :payer_name, "Payer", class:"form-label" %>
+        <% end %>
+      </div>
+    </div>  
+    <div class="col-md-4 mb-4">
+      <div class="form-outline">
+        <%= form.text_field :amount, autofocus: true, class:"form-control form-control-lg" %>
+        <%= form.label :amount, class:"form-label" %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-4 mb-4">
+        <div class="form-outline">
+          <%= form.text_field :type, autofocus: true, class:"form-control form-control-lg", value: params[:type] , readonly:true %>
+          <%= form.label :type, class:"form-label" %>
+        </div>
+      </div>
+    <div class="col-md-4 mb-4">
+      <div class="form-outline">
+        <%= form.text_field :amount, autofocus: true, class:"form-control form-control-lg" %>
+        <%= form.label :amount, class:"form-label" %>
+      </div>
+    </div>
+    <div class="col-md-4 mb-4">
+      <div class="form-outline">
+        <%= form.text_field :amount, autofocus: true, class:"form-control form-control-lg" %>
+        <%= form.label :amount, class:"form-label" %>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-outline mb-4">
+    <input type="password" id="form1Example2" class="form-control" />
+    <label class="form-label" for="form1Example2">Password</label>
+  </div>
+
+  <!-- 2 column grid layout for inline styling -->
+  <div class="row mb-4">
+    <div class="col d-flex justify-content-center">
+      <!-- Checkbox -->
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="" id="form1Example3" checked />
+        <label class="form-check-label" for="form1Example3"> Remember me </label>
+      </div>
+    </div>
+
+    <div class="col">
+      <!-- Simple link -->
+      <a href="#!">Forgot password?</a>
+    </div>
+  </div>
+
+  <!-- Submit button -->
+  <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+<% end %>
