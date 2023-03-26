@@ -1,0 +1,70 @@
+To achieve this, you can use AJAX polling to periodically check for new notifications while the user is on the notification tab. Here are the steps:
+
+Add a new route and controller action for fetching notifications:
+ruby
+Copy code
+# config/routes.rb
+get 'notifications/fetch', to: 'notifications#fetch'
+ruby
+Copy code
+# app/controllers/notifications_controller.rb
+class NotificationsController < ApplicationController
+  def fetch
+    @notifications = current_user.notifications.unread
+    render json: @notifications
+  end
+end
+This action fetches all unread notifications for the current user and returns them in JSON format.
+
+Add a new JavaScript function for fetching notifications:
+javascript
+Copy code
+function fetchNotifications() {
+  $.get('/notifications/fetch')
+    .done(function(data) {
+      if (data.length > 0) {
+        showNotifications(data);
+      }
+    })
+    .always(function() {
+      setTimeout(fetchNotifications, 5000); // Poll every 5 seconds
+    });
+}
+This function sends an AJAX request to the notifications/fetch route and checks if there are any new notifications. If there are, it calls the showNotifications() function (which you will define next) to display them. It then sets a timeout to call itself again after 5 seconds, effectively polling for new notifications every 5 seconds.
+
+Modify the showNotifications() function to display new notifications without refreshing the page:
+javascript
+Copy code
+function showNotifications(notifications) {
+  var $list = $('#notifications-list');
+
+  notifications.forEach(function(notification) {
+    var $item = $('<li>').text(notification.message);
+    $list.prepend($item);
+  });
+
+  var $count = $('#notifications-count');
+  var count = parseInt($count.text()) || 0;
+  $count.text(count + notifications.length);
+
+  var $bell = $('#notifications-bell');
+  $bell.addClass('has-notifications').effect('bounce', { times: 3 }, 300);
+
+  if ($('#notifications-tab').hasClass('active')) {
+    // User is currently on the notifications tab, so no need to show a popup
+    return;
+  }
+
+  // User is not on the notifications tab, so show a popup
+  var $popup = $('<div>').addClass('notification-popup').text(notifications[0].message);
+  $('body').append($popup);
+
+  setTimeout(function() {
+    $popup.fadeOut(500, function() {
+      $(this).remove();
+    });
+  }, 5000); // Hide popup after 5 seconds
+}
+This function adds the new notifications to the notifications list and updates the notification count. It also adds a "has-notifications" class to the bell icon and bounces it to draw the user's attention to new notifications.
+
+If the user is currently on the notifications tab, the function simply returns without showing a popup. Otherwise, it shows a popup with the first new notification message for 5 seconds and then fades it out
