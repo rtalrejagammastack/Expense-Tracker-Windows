@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_03_22_163827) do
+ActiveRecord::Schema.define(version: 2023_03_24_175351) do
 
   create_table "expense_categories", force: :cascade do |t|
     t.string "name"
@@ -55,10 +55,12 @@ ActiveRecord::Schema.define(version: 2023_03_22_163827) do
     t.integer "status_id", null: false
     t.integer "type_id", null: false
     t.integer "mode_id", null: false
-    t.integer "receiver_id", null: false
-    t.integer "payer_id", null: false
+    t.integer "receiver_id"
+    t.integer "payer_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "payer_name"
+    t.string "receiver_name"
     t.index ["expense_category_id"], name: "index_transactions_on_expense_category_id"
     t.index ["mode_id"], name: "index_transactions_on_mode_id"
     t.index ["payer_id"], name: "index_transactions_on_payer_id"

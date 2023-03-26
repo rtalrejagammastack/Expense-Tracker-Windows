@@ -1,37 +1,43 @@
 class CategoriesController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_category, only: [:edit,:show,:update,:destroy]
 
   def new
     @category = UserCategory.new
   end
 
   def create
-    @user = current_user
-    @category = @user.categories.create(category_params)
-
+    @category = current_user.categories.create(category_params)
     if @category.save
       redirect_to category_path(@category), notice: 'Category successfully created.'
     else
-      # render :new
-      redirect_to new_category_path, alert: 'Some issue in creating Category.Try Again...'
+      render :new, status: :unprocessable_entity, alert: "Some issue in creating Category.Try Again..."
+      # redirect_to new_category_path, alert: 'Some issue in creating Category.Try Again...'
     end
   end
 
   def show
-    @category = UserCategory.find_by_id(params[:id])
     @transactions = @category.transactions
   end
 
-  def update
+  def edit
 
   end
 
+  def update
+    puts "####################3"
+    puts @category
+    # @category.update(update_params);
+    # respond_to do |format|
+    #   format.js
+    # end
+  end
+
   def destroy
-    @category = UserCategory.find_by_id(params[:id])
     if @category.destroy
-      redirect_to root_path, notice: 'Category Successfully Deleted.'
+      redirect_to home_path, notice: 'Category Successfully Deleted.'
     else
-      redirect_to root_path, alert: 'Category Deletion Failed.'
+      redirect_to home_path, alert: 'Category Deletion Failed.'
     end
   end
 
@@ -39,5 +45,15 @@ class CategoriesController < ApplicationController
 
   def category_params
     params.require(:user_category).permit(:name)
+  end
+
+  def update_params
+    params.permit(:name)
+  end
+
+  def set_category
+    @category = UserCategory.find(params[:id])
+  rescue ActiveRecord::RecordNotFound => error
+    redirect_to home_path, notice: error
   end
 end

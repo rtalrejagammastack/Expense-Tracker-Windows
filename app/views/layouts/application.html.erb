@@ -24,7 +24,7 @@
 
   <body>
     <% if user_signed_in?  %>
-      <%= render partial:'shared/navbar_sidebar',locals: {categories: all_categories } %>
+      <%= render partial:'shared/navbar_sidebar' %>
     <% else %>
       <%= yield %>
     <% end  %>
