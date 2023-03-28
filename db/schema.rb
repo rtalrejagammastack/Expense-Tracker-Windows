@@ -10,14 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_03_22_162933) do
+ActiveRecord::Schema.define(version: 2023_03_28_124203) do
 
   create_table "expense_categories", force: :cascade do |t|
     t.string "name"
     t.boolean "show", default: true
     t.integer "user_category_id"
+    t.string "slug"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["slug"], name: "index_expense_categories_on_slug", unique: true
     t.index ["user_category_id"], name: "index_expense_categories_on_user_category_id"
   end
 
@@ -28,8 +30,22 @@ ActiveRecord::Schema.define(version: 2023_03_22_162933) do
     t.integer "user_category_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "slug"
     t.index ["category_id"], name: "index_expense_sub_categories_on_category_id"
+    t.index ["slug"], name: "index_expense_sub_categories_on_slug", unique: true
     t.index ["user_category_id"], name: "index_expense_sub_categories_on_user_category_id"
+  end
+
+  create_table "friendly_id_slugs", force: :cascade do |t|
+    t.string "slug", null: false
+    t.integer "sluggable_id", null: false
+    t.string "sluggable_type", limit: 50
+    t.string "scope"
+    t.datetime "created_at"
+    t.index ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true
+    t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
+    t.index ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id"
+    t.index ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type"
   end
 
   create_table "user_categories", force: :cascade do |t|
@@ -37,8 +53,10 @@ ActiveRecord::Schema.define(version: 2023_03_22_162933) do
     t.decimal "expense", default: "0.0"
     t.decimal "income", default: "0.0"
     t.integer "user_id", null: false
+    t.string "slug"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["slug"], name: "index_user_categories_on_slug", unique: true
     t.index ["user_id"], name: "index_user_categories_on_user_id"
   end
 

@@ -6,7 +6,7 @@ Rails.application.routes.draw do
     get 'users',to: 'devise/registrations#new'
   end
 
-  get '/messages', to: 'messages#index'
+  get '/messages', to: 'messages#index', as: 'home'
   get 'expenses', to: 'home#expenses'
   get 'incomes', to: 'home#incomes'
   get 'calendar_view', to: 'home#calendar'
@@ -14,10 +14,10 @@ Rails.application.routes.draw do
   
   # resources :messages
 
-  resources :categories do
+  resources :categories, param: :slug do
     # resources :transactions
-    resources :expense_categories do
-      resources :expense_sub_categories
+    resources :expense_categories, param: :slug do
+      resources :expense_sub_categories, param: :slug
     end
   end
 

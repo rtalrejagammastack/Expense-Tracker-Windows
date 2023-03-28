@@ -21,7 +21,8 @@ class ExpenseCategoriesController < ApplicationController
     if @expense_category.save
       redirect_to category_expense_category_path(@user_category,@expense_category), notice: "Successfully created Expense Category."
     else
-      redirect_to new_category_expense_category_path(@user_category), alert: "Unable to create Expense Category.Try Again..."
+      render :new
+      # redirect_to new_category_expense_category_path(@user_category), alert: "Unable to create Expense Category.Try Again..."
     end
   end
 
@@ -55,11 +56,11 @@ class ExpenseCategoriesController < ApplicationController
   end
 
   def ids_params
-    params.permit(:category_id,:id)
+    params.permit(:category_slug,:slug)
   end
 
   def set_user_category
-    @user_category = UserCategory.find_by_id(ids_params[:category_id])
+    @user_category = UserCategory.friendly.find_by_slug(ids_params[:category_slug])
   end
 
   def set_expense_category

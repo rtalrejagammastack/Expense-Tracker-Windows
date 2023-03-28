@@ -7,7 +7,7 @@ class CategoriesController < ApplicationController
   end
 
   def create
-    @category = current_user.categories.create(category_params)
+    @category = current_user.categories.new(category_params)
     if @category.save
       redirect_to category_path(@category), notice: 'Category successfully created.'
     else
@@ -52,7 +52,7 @@ class CategoriesController < ApplicationController
   end
 
   def set_category
-    @category = UserCategory.find(params[:id])
+    @category = UserCategory.friendly.find_by_slug(params[:slug])
   rescue ActiveRecord::RecordNotFound => error
     redirect_to home_path, notice: error
   end

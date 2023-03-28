@@ -2,6 +2,9 @@
 
 # Model to store the User Categories like Personal,Family or Hidden Expenses.
 class UserCategory < ApplicationRecord
+  extend FriendlyId
+  friendly_id :generated_slug, use: :slugged
+
   before_validation :capital_first_letter
 
   belongs_to :user
