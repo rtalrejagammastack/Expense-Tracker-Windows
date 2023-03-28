@@ -6,12 +6,11 @@ Rails.application.routes.draw do
     get 'users',to: 'devise/registrations#new'
   end
 
-  get 'home', to: 'home#index'
   get '/messages', to: 'messages#index'
   get 'expenses', to: 'home#expenses'
   get 'incomes', to: 'home#incomes'
   get 'calendar_view', to: 'home#calendar'
-  get '/expense_categories', to: 'expense_categories#index'
+  get '/expense_categories', to: 'expense_categories#main'
   
   # resources :messages
 
@@ -23,5 +22,5 @@ Rails.application.routes.draw do
   end
 
   # resources :transactions
-  resources :expense_categories
+  # resources :expense_categories
 end

@@ -1,0 +1,15 @@
+<h1 class="text-center"> Edit Expense Sub Category For <%= @expense_category.name %> Category </h1>
+
+<%= form_with model: @expense_sub_category, url: category_expense_category_expense_sub_category_path(@user_category,@expense_category,@expense_sub_category) do |form| %>
+      
+  <div class="row">
+    <div class="col-md-4 mb-4">
+      <div class="form-outline">
+        <%= form.text_field :name, autofocus: true, class:"form-control form-control-lg" %>
+        <%= form.label :name, class:"form-label" %>
+      </div>
+    </div>
+  </div>
+
+  <%= form.submit "Update Expense Sub Category", class:"btn btn-success" %>
+<% end %>

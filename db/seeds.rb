@@ -8,13 +8,13 @@
 
 # User.create([{name:"Rohit",email:"rohit@yopmail.com",password:"123456",phone_number:1234567891}])
 
-User.find_by_name("Rohit").categories.create([{name:"Personal"},{name:"Family"},{name:"Hidden"}])
+# User.find_by_name("Rohit").categories.create([{name:"Personal"},{name:"Family"},{name:"Hidden"}])
 
-TransactionStatus.create([{name:"Complete"},{name:"Pending"}])
+# TransactionStatus.create([{name:"Complete"},{name:"Pending"}])
 
-TransactionType.create([{name:"Expense"},{name:"Income"}])
+# TransactionType.create([{name:"Expense"},{name:"Income"}])
 
-TransactionMode.create([{name:"Cash"},{name:"Upi"},{name:"Debt Card"},{name:"Credit Card"}])
+# TransactionMode.create([{name:"Cash"},{name:"Upi"},{name:"Debt Card"},{name:"Credit Card"}])
 
 ExpenseCategory.create([{name:"Food"},{name:"Health"},{name:"Travel"}])
 

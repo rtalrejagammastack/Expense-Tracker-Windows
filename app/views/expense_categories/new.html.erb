@@ -1,15 +1,15 @@
 <h1 class="text-center"> New Expense Category For <%= @user_category.name %> Category </h1>
 
-  <%= form_with model: @expense_category, url: category_expense_categories_path(@user_category) do |form| %>
-        
-    <div class="row">
-      <div class="col-md-4 mb-4">
-        <div class="form-outline">
-          <%= form.text_field :name, autofocus: true, class:"form-control form-control-lg" %>
-          <%= form.label :name, class:"form-label" %>
-        </div>
+<%= form_with model: @expense_category, url: category_expense_categories_path(@user_category) do |form| %>
+      
+  <div class="row">
+    <div class="col-md-4 mb-4">
+      <div class="form-outline">
+        <%= form.text_field :name, autofocus: true, class:"form-control form-control-lg" %>
+        <%= form.label :name, class:"form-label" %>
       </div>
     </div>
+  </div>
 
-    <%= form.submit "Create Expense Category", class:"btn btn-success" %>
-  <% end %>
+  <%= form.submit "Create Expense Category", class:"btn btn-success" %>
+<% end %>

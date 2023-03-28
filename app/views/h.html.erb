@@ -68,3 +68,19 @@ function showNotifications(notifications) {
 This function adds the new notifications to the notifications list and updates the notification count. It also adds a "has-notifications" class to the bell icon and bounces it to draw the user's attention to new notifications.
 
 If the user is currently on the notifications tab, the function simply returns without showing a popup. Otherwise, it shows a popup with the first new notification message for 5 seconds and then fades it out
+
+
+
+
+
+
+
+
+ def user?
+      self.user_category&.user
+      #  unless self.user_category.nil?
+  end
+
+
+
+  # validates_uniqueness_of :name, conditions: -> { where.not(show: 'false') }

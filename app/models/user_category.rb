@@ -13,6 +13,6 @@ class UserCategory < ApplicationRecord
   validates :name, presence: true, uniqueness: { scope: :user_id, message: "%{value} already exists" }
   
   def fetch_expense_categories
-    ExpenseCategory.where(user_category_id:[nil,id])
+    ExpenseCategory.where(user_category_id:[nil,id]).where(show:true).order(:name)
   end
 end
