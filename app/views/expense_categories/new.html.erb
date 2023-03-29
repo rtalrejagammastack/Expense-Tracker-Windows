@@ -1,6 +1,6 @@
 <h1 class="text-center"> New Expense Category For <%= @user_category.name %> Category </h1>
 
-<%= form_with model: @expense_category, url: category_expense_categories_path(@user_category) do |form| %>
+<%= form_with model: [ @user_category, @user_category.expense_categories.build ] do |form| %>
       
   <div class="row">
     <div class="col-md-4 mb-4">
@@ -10,6 +10,5 @@
       </div>
     </div>
   </div>
-
   <%= form.submit "Create Expense Category", class:"btn btn-success" %>
 <% end %>

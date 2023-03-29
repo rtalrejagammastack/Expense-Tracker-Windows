@@ -8,7 +8,7 @@
               <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/img1.webp"
                 alt="signup form" class="img-fluid" style="border-radius: 1rem 0 0 1rem;" />
             </div>
-            <div class="col-md-6 col-lg-7 d-flex align-items-center">
+            <div class="col-md-6 col-lg-7 d-flex align-items-center form-group">
               <div class="card-body p-4 p-lg-5 text-black">
 
                 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
@@ -78,3 +78,9 @@
   </div>
 </section>
 <%= render "devise/shared/error_messages", resource: resource %>
+
+<style>
+  .field_with_errors .form-control {
+  border: 1px solid #a8a8a8;
+}
+</style>

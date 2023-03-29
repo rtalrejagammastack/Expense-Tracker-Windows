@@ -17,7 +17,7 @@ class ExpenseCategory < ApplicationRecord
   has_many :sub_categories, class_name: 'ExpenseSubCategory', foreign_key: 'category_id'
 
   def fetch_sub_categories(user_category)
-    sub_categories.where(user_category_id: [nil, user_category]).where(show: true)
+    sub_categories.where(user_category_id: [nil, user_category]).where(show: true).order(:name)
   end
 
   def fetch_sub_categories_names(user_category)
@@ -28,7 +28,7 @@ class ExpenseCategory < ApplicationRecord
     user_category&.user
   end
 
-  def check_name
-    errors.add(:name, ' already Exists.') if DEFAULT_EXPENSE_CATEGORIES.index(name)
-  end
+  # def check_name
+  #   errors.add(:name, ' already Exists.') if DEFAULT_EXPENSE_CATEGORIES.index(name)
+  # end
 end

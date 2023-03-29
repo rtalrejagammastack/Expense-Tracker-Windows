@@ -28,3 +28,6 @@ ExpenseCategory.find_by_name("Travel").sub_categories.create([{name:"Bus"},{name
 # save 
 # OR 
 # User.first.categories.first.transactions.new(title:"Food Item",amount:420,description:"Good Food",status_id:1,type_id:1,mode_id:2,expense_category_id:1,payer_id:1,receiver_id:2).save
+
+# ap ExpenseCategory.joins("INNER JOIN user_categories ON user_categories.id = expense_categories.user_category_id").group(:user_category_id).count
+# ap ExpenseCategory.joins(:user_category).group("user_category_id").count

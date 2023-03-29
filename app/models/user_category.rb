@@ -14,6 +14,10 @@ class UserCategory < ApplicationRecord
   has_many :transactions, dependent: :destroy
 
   validates :name, presence: true, uniqueness: { scope: :user_id, message: "%{value} already exists" }
+
+  # scope :load_expense_categories, -> { ExpenseCategory.where("department_id = ?", selected_department) }
+  # scope :fetch_expense_categories, -> { ExpenseCategory.where(user_category_id:[nil,id]).where(show:true).order(:name) }
+
   
   def fetch_expense_categories
     ExpenseCategory.where(user_category_id:[nil,id]).where(show:true).order(:name)

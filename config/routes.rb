@@ -12,15 +12,15 @@ Rails.application.routes.draw do
   get 'calendar_view', to: 'home#calendar'
   get '/expense_categories', to: 'expense_categories#main'
   
-  # resources :messages
-
-  resources :categories, param: :slug do
-    # resources :transactions
+  
+  resources :user_categories, param: :slug do
     resources :expense_categories, param: :slug do
       resources :expense_sub_categories, param: :slug
     end
   end
-
+  
+  resources :messages
+  # resources :transactions
   # resources :transactions
   # resources :expense_categories
 end

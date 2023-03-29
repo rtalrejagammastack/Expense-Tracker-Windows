@@ -1,41 +1,40 @@
-<h1 class="text-center"> <%= @user_category.name %>
+<h1 class="text-center"> <%= @user_category.name %> </h1>
 
 <div class="col-lg-12">
-    <div class="card mt-5 mb-5 rounded-0">
-        <div class="card-body">
-            <h2 class="text-center">Listing Expense Categories</h2>
-        </div>
+  <div class="card mt-5 mb-5 rounded-0">
+    <div class="card-body">
+        <h2 class="text-center"> Listing Expense Categories </h2>
     </div>
+  </div>
 
-    <%= link_to "New Expense Category",new_category_expense_category_path(@user_category), class: "btn btn-primary btn-lg mb-4 rounded-0" %>
+  <%= link_to "New Expense Category", new_user_category_expense_category_path(@user_category), class: "btn btn-primary btn-lg mb-4 rounded-0" %>
 
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th class="text-center">Category Name</th>
-                <th class="text-center">Sub-Categories</th>
-                <th class="text-center">Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            <% @expense_categories.each do |expense_category| %>  
-              
-                <tr>
-                    <td><%= expense_category.name %> </td>
-                    <td>
-                      <%= expense_category.fetch_sub_categories_names(@user_category) %>
-                    </td>
-                    <td>
-                      <%= link_to "Show Expense Sub Categories", category_expense_category_path(@user_category,expense_category), class:"btn btn-primary" %>
-                      <% if expense_category.user? %>
-                        <%= link_to "Edit Category", edit_category_expense_category_path(@user_category,expense_category), class:"btn btn-primary" %>
-                        <%= link_to "Delete Category", category_expense_category_path(@user_category,expense_category), class: "btn btn-danger", method: :delete, data: {
-                              confirm: 'Are you sure to delete this Expense Category and all of its sub-categories?'
-                          } %>
-                      <% end %>
-                    </td>
-                </tr>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th class="text-center">Category Name</th>
+        <th class="text-center">Sub-Categories</th>
+        <th class="text-center">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @expense_categories.each do |expense_category| %>  
+        <tr>
+          <td> <%= expense_category.name %> </td>
+          <td> <%= @expense_sub_categories[expense_category.id] %> </td>
+          <td>
+            <%= link_to "Show Expense Sub Categories", user_category_expense_category_path(@user_category,expense_category), class:"btn btn-primary" %>
+
+            <% if expense_category.user? %>
+              <%= link_to "Edit Category", edit_user_category_expense_category_path(@user_category,expense_category), class:"btn btn-primary" %>
+
+              <%= link_to "Delete Category", user_category_expense_category_path(@user_category,expense_category), class: "btn btn-danger", method: :delete, data: {
+                    confirm: 'Are you sure to delete this Expense Category and all of its sub-categories?'
+                } %>
             <% end %>
-        </tbody>
-    </table>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 </div>
