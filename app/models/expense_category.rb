@@ -15,15 +15,20 @@ class ExpenseCategory < ApplicationRecord
   # Associaions
   belongs_to :user_category, optional: true
   has_many :sub_categories, class_name: 'ExpenseSubCategory', foreign_key: 'category_id'
-
+  
+  scope :fetch_user_expense_categories, ->( ids ) { where(user_category_id:[nil,ids]).where(show:true).order(:name) }
+  
   def fetch_sub_categories(user_category)
     sub_categories.where(user_category_id: [nil, user_category]).where(show: true).order(:name)
   end
-
+  # def fetch_sub_categories
+  #   sub_categories.where(user_category_id: [nil, user_category_id]).where(show: true).order(:name)
+  # end
+  
   def fetch_sub_categories_names(user_category)
     fetch_sub_categories(user_category).pluck(:name).join(', ')
   end
-
+  
   def user?
     user_category&.user
   end

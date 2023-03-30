@@ -9,17 +9,17 @@ class UserCategory < ApplicationRecord
 
   belongs_to :user
   has_many :expense_categories
-  # has_many :expense_sub_categories, through: :expense_categories
-
-  has_many :transactions, dependent: :destroy
-
+  has_many :transactions
+  
   validates :name, presence: true, uniqueness: { scope: :user_id, message: "%{value} already exists" }
-
-  # scope :load_expense_categories, -> { ExpenseCategory.where("department_id = ?", selected_department) }
-  # scope :fetch_expense_categories, -> { ExpenseCategory.where(user_category_id:[nil,id]).where(show:true).order(:name) }
-
   
   def fetch_expense_categories
     ExpenseCategory.where(user_category_id:[nil,id]).where(show:true).order(:name)
   end
 end
+
+
+
+# scope :load_expense_categories, -> { ExpenseCategory.where("department_id = ?", selected_department) }
+# scope :fetch_expense_categories, -> { ExpenseCategory.where(user_category_id:[nil,ids]).where(show:true).order(:name) }
+# has_many :expense_sub_categories, through: :expense_categories

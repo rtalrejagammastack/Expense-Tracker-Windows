@@ -16,6 +16,7 @@ class ExpenseSubCategory < ApplicationRecord
   # Associations
   belongs_to :category, class_name: 'ExpenseCategory'
   belongs_to :user_category, optional: true
+  has_many :transactions
 
   def user?
     user_category&.user

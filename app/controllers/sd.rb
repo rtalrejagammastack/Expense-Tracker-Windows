@@ -3,17 +3,20 @@ class ExpenseCategoriesController < ApplicationController
   before_action :find_user_category
   before_action :find_expense_category, only: [:show,:edit,:update,:destroy]
 
-  def all
-    @user_categories = current_user.categories
-    @expense_categories = { }
-    @expense_sub_categories = { }
-    @user_categories.each do |user_category|
-      @expense_categories[user_category.id] =  user_category.fetch_expense_categories
 
-      @expense_categories[user_category.id].each do |expense_category|
-        @expense_sub_categories[expense_category.id] = expense_category.fetch_sub_categories(user_category)
-      end
-    end
+  def main
+    # ExpenseCategory.where(user_category_id:[nil,id]).where(show:true).order(:name)
+   @set_hash = set_hash( current_user.categories.ids)
+
+    # @expense_categories = { }
+    # byebug
+    # @expense_sub_categories = { }
+    # @user_categories.each do |user_category|
+    #   @expense_categories[user_category.id] =  user_category.fetch_expense_categories
+
+    #   @expense_categories[user_category.id].each do |expense_category|
+    #     @expense_sub_categories[expense_category.id] = expense_category.fetch_sub_categories(user_category)
+    #   end
   end
 
   def index
@@ -61,6 +64,11 @@ class ExpenseCategoriesController < ApplicationController
   end
 
   private
+
+
+  def set_hash(user_category_id)
+    ExpenseCategory.where(user_category_id: user_category_id).where(show:true).order(:name).index_by(&:user_category_id)
+  end
   
   def expense_category_params
     params.require(:expense_category).permit(:name)

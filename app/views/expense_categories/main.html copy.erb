@@ -1,0 +1,22 @@
+<h1 class="text-center"> Expense Categories </h1>
+
+<% @set_hash.map do |id , expense_category| %>
+<%byebug%>
+  <div class="d-flex justify-content-around"> 
+    <%= user_category.name %>
+    <%= link_to "Show Category Details", user_category_expense_categories_path(expense_category), class:"btn btn-primary" %>
+  </div>
+
+  <div class="container d-flex">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title text-center"> <%= expense_category.name %> </h5>
+
+          <% expense_category.each do |expense_sub_category| %>
+    
+            <p class="card-text"> <%= expense_sub_category.name %> </p>
+          <% end %>
+        </div>
+      </div>  
+  </div>
+<% end %>

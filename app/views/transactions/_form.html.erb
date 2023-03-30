@@ -5,7 +5,8 @@
         <%= form.text_field :title, autofocus: true, class:"form-control form-control-lg" %>
         <%= form.label :title, class:"form-label" %>
       </div>
-    </div>
+    </div>  
+
     <div class="col-md-4 mb-4">
       <div class="form-outline">
         <% if type == "Expense" %>
@@ -16,57 +17,122 @@
           <%= form.label :payer_name, "Payer", class:"form-label" %>
         <% end %>
       </div>
-    </div>  
-    <div class="col-md-4 mb-4">
+    </div>
+
+    <div class="col-md-4 mb-4"> 
       <div class="form-outline">
         <%= form.text_field :amount, autofocus: true, class:"form-control form-control-lg" %>
         <%= form.label :amount, class:"form-label" %>
       </div>
     </div>
-  </div>
 
-  <div class="row">
     <div class="col-md-4 mb-4">
-        <div class="form-outline">
-          <%= form.text_field :type, autofocus: true, class:"form-control form-control-lg", value: params[:type] , readonly:true %>
           <%= form.label :type, class:"form-label" %>
-        </div>
-      </div>
-    <div class="col-md-4 mb-4">
-      <div class="form-outline">
-        <%= form.text_field :amount, autofocus: true, class:"form-control form-control-lg" %>
-        <%= form.label :amount, class:"form-label" %>
-      </div>
+          <%= form.text_field :type, autofocus: true, class:"form-control form-control-lg", value: params[:type] , readonly:true %>
     </div>
+
     <div class="col-md-4 mb-4">
+        <%= form.label :status_id, class:"form-label" %>
+        <%= form.select :status_id, options_for_select( @transaction_statuses.map do |status| 
+            [status.name, status.id]
+          end
+        ),{ prompt: 'Select Status' }, class:'form-control form-control-lg' %>
+    </div>
+
+    <div class="col-md-4 mb-4">
+        <%= form.label :mode_id, class:"form-label" %>
+        <%= form.select :mode_id, options_for_select( @transaction_modes.map do |mode| 
+            [mode.name, mode.id]
+          end
+        ),{ prompt: 'Select Mode' }, class:'form-control form-control-lg' %>
+    </div>
+
+    <div class="col-md-4 mb-4">
+        <%= form.label :user_category_id, class:"form-label" %>
+        <%= form.select :user_category_slug, options_for_select( @user_categories.map do |user_category| 
+            [user_category.name, user_category.slug]
+          end
+        ),{ prompt: 'Select User Category' }, class:'form-control form-control-lg' %>
+    </div>
+
+    <div class="col-md-4 mb-4">
+        <%= form.label :expense_category, class:"form-label" %>
+        <%= form.select :expense_category_main_slug, options_for_select( "None" ), { prompt: 'Select Expense Category' }, class:'form-control form-control-lg' %>
+    </div>
+
+    <div class="col-md-4 mb-4">
+        <%= form.label :expense_sub_category, class:"form-label" %>
+        <%= form.select :expense_category_id, options_for_select( "None" ), { prompt: 'Select Expense Sub-Category' }, class:'form-control form-control-lg' %>
+    </div>
+  </div>
+
+  <div class="row mb-4 mb-4">
+    <div class="col-md-12">
       <div class="form-outline">
-        <%= form.text_field :amount, autofocus: true, class:"form-control form-control-lg" %>
-        <%= form.label :amount, class:"form-label" %>
+        <%= form.text_area :description, autofocus: true, class:"form-control form-control-lg" %>
+        <%= form.label :description, class:"form-label" %>
       </div>
     </div>
   </div>
 
-  <div class="form-outline mb-4">
-    <input type="password" id="form1Example2" class="form-control" />
-    <label class="form-label" for="form1Example2">Password</label>
-  </div>
-
-  <!-- 2 column grid layout for inline styling -->
-  <div class="row mb-4">
+  <div class="row mb-4 mb-4">
     <div class="col d-flex justify-content-center">
-      <!-- Checkbox -->
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" value="" id="form1Example3" checked />
-        <label class="form-check-label" for="form1Example3"> Remember me </label>
+      <div>
+        <%= form.button "Create",class:"btn btn-primary btn-block" %>
       </div>
     </div>
-
-    <div class="col">
-      <!-- Simple link -->
-      <a href="#!">Forgot password?</a>
-    </div>
   </div>
-
-  <!-- Submit button -->
-  <button type="submit" class="btn btn-primary btn-block">Sign in</button>
 <% end %>
+
+
+<script>
+  $(document).ready(function(){
+    $('#transaction_user_category_slug').on('change',function(){
+      let user_category = $(this).val();
+
+      if (user_category){
+        $.ajax({
+          url: '/transactions/user_category/' + user_category,
+          type: 'GET',
+          dataType: 'json',
+          success: function(data){
+            var options ='';
+            $.each(data, function(index, value){
+                options += '<option value="' + value.slug + '">' + value.name + '</option>';
+            });
+            $('#transaction_expense_category_main_slug').html(options);
+          }, 
+          error: function(xhr, textStatus, errorThrown) {
+            console.log('Error fetching options: ' + errorThrown);
+          }
+        });
+      }else{
+        $('#transaction_expense_category_main_slug').html('<option value="">Select Expense Category</option>');
+        $('#transaction_expense_category_id').html('<option value=" ">Select Expense Sub-Category</option>');
+      }
+    });
+    $('#transaction_expense_category_main_slug').on('change',function(){
+      let expense_category = $(this).val();
+
+      if (expense_category){
+        $.ajax({
+          url: '/transactions/expense_category/' + expense_category,
+          type: 'GET',
+          dataType: 'json',
+          success: function(data){
+            var options ='';
+            $.each(data, function(index, value){
+                options += '<option value="' + value.id + '">' + value.name + '</option>';
+            });
+            $('#transaction_expense_category_id').html(options);
+          }, 
+          error: function(xhr, textStatus, errorThrown) {
+            console.log('Error fetching options: ' + errorThrown);
+          }
+        });
+      }else{
+        $('#transaction_expense_category_id').html('<option value=" ">Select Expense Sub-Category</option>');
+      }
+    });
+  });
+</script>

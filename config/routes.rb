@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   get 'expenses', to: 'home#expenses'
   get 'incomes', to: 'home#incomes'
   get 'calendar_view', to: 'home#calendar'
-  get '/expense_categories', to: 'expense_categories#main'
+  get '/expense_categories', to: 'expense_categories#all'
   
   
   resources :user_categories, param: :slug do
@@ -20,7 +20,14 @@ Rails.application.routes.draw do
   end
   
   resources :messages
-  # resources :transactions
+  resources :transactions,param: :slug do
+    collection do
+      get 'user_category/:slug',param: :slug, to: 'transactions#fetch_expense_categories'
+      get 'expense_category/:slug',param: :slug, to: 'transactions#fetch_expense_sub_categories'
+    end
+  end
   # resources :transactions
   # resources :expense_categories
 end
+# transactions/user_category/:slug
+# transactions/user_category/:user_category_slug/expense_category/:slug
