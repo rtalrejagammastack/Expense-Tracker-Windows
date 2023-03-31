@@ -4,6 +4,8 @@ class ExpenseCategoriesController < ApplicationController
   before_action :find_expense_category, only: [:show,:edit,:update,:destroy]
 
   def all
+    current_user.expense_categories
+    byebug
     @user_categories = current_user.categories
     @expense_categories = { }
     @expense_sub_categories = { }
