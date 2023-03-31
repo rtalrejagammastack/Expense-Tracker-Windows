@@ -5,22 +5,15 @@ class UserCategory < ApplicationRecord
   extend FriendlyId
   friendly_id :generated_slug, use: :slugged
 
+  # Callbacks
   before_validation :capital_first_letter
   
+  # Validations
   validates :name, presence: true
-  
+
+  # Associations
   belongs_to :user
-  has_many :expense_categories, -> { where(user_category_id:[nil,ids]).where(show:true) }
+  has_many :expense_categories
   has_many :sub_categories, through: :expense_categories
   has_many :transactions
 end
-
-
-
-# def fetch_expense_categories
-#   ExpenseCategory.where(user_category_id:[nil,id]).where(show:true).order(:name)
-# end
-# scope :load_expense_categories, -> { ExpenseCategory.where("department_id = ?", selected_department) }
-# has_many :expense_sub_categories, through: :expense_categories
-# validates :name, presence: true, uniqueness: { scope: :user_id, message: "%{value} already exists" }
-# scope :fetch_expense_categories,( ids ) -> { ExpenseCategory.where(user_category_id:[nil,ids]).where(show:true).order(:name) }

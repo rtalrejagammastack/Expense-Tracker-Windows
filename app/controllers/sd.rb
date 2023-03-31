@@ -82,3 +82,7 @@ class ExpenseCategoriesController < ApplicationController
     @expense_category = ExpenseCategory.friendly.find_by_slug(params[:slug])
   end
 end
+
+TransactionsController
+# expense_categories = ExpenseCategory.fetch_user_expense_categories(current_user.categories.pluck(:id))
+# expense_category = expense_categories.find_by_slug(params[:slug])

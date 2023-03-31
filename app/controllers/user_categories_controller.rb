@@ -1,6 +1,9 @@
+# frozen_string_literal: true
+
+# User Categories operations
 class UserCategoriesController < ApplicationController
   before_action :authenticate_user!
-  before_action :load_user_category, only: [:edit,:show,:update,:destroy]
+  before_action :load_user_category, only: %i[edit show update destroy]
 
   def new
     @user_category = UserCategory.new
@@ -11,12 +14,11 @@ class UserCategoriesController < ApplicationController
     if @user_category.save
       redirect_to user_category_path(@user_category), notice: 'Category successfully created.'
     else
-      render :new, status: :unprocessable_entity, alert: "Some issue in creating Category.Try Again..."
+      render :new, status: :unprocessable_entity, alert: 'Some issue in creating Category.Try Again...'
     end
   end
 
   def index
-      
   end
 
   def show
@@ -36,7 +38,7 @@ class UserCategoriesController < ApplicationController
 
   def destroy
     if @user_category.destroy
-      redirect_to , notice: 'Category Successfully Deleted.'
+      redirect_to home_path, notice: 'Category Successfully Deleted.'
     else
       redirect_to @user_category, alert: 'Category Deletion Failed.'
     end
@@ -50,7 +52,5 @@ class UserCategoriesController < ApplicationController
 
   def load_user_category
     @user_category = UserCategory.friendly.find_by_slug(params[:slug])
-  rescue ActiveRecord::RecordNotFound => error
-    redirect_to home_path, notice: error
   end
 end

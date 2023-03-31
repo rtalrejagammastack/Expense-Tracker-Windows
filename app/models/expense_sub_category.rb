@@ -10,19 +10,15 @@ class ExpenseSubCategory < ApplicationRecord
 
   # Validations
   validates :name, presence: true
-  
+
   # Associations
   belongs_to :category, class_name: 'ExpenseCategory'
   belongs_to :user_category, optional: true
   has_many :transactions
-  
-  scope :fetch_expense_sub_categories_with_nil, -> ( user_category_id, expense_category_id ) { where(user_category_id: [nil, user_category_id]).where(category_id: expense_category_id).order(:name).where(show: true) }
+
+  scope :fetch_expense_sub_categories_with_nil, ->(user_category_id, expense_category_id) { where(user_category_id: [nil, user_category_id]).where(category_id: expense_category_id).order(:name).where(show: true) }
 
   def user?
     user_category&.user
   end
 end
-
-# validates :name, presence: true, uniqueness: { scope: [:user_id, :category_id], message: "%{value} already exists" }
-# validates_uniqueness_of :name, conditions: -> { where.not(show: 'false') }
-# validates :name, presence: true, uniqueness: { scope: :category_id, message: ' %<value> already exists' }
