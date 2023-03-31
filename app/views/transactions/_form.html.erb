@@ -49,15 +49,15 @@
 
     <div class="col-md-4 mb-4">
         <%= form.label :user_category_id, class:"form-label" %>
-        <%= form.select :user_category_slug, options_for_select( @user_categories.map do |user_category| 
-            [user_category.name, user_category.slug]
+        <%= form.select :user_category_id, options_for_select( @user_categories.map do |user_category| 
+            [user_category.name, user_category.id]
           end
         ),{ prompt: 'Select User Category' }, class:'form-control form-control-lg' %>
     </div>
 
     <div class="col-md-4 mb-4">
         <%= form.label :expense_category, class:"form-label" %>
-        <%= form.select :expense_category_main_slug, options_for_select( "None" ), { prompt: 'Select Expense Category' }, class:'form-control form-control-lg' %>
+        <%= form.select :expense_category_main_id, options_for_select( "None" ), { prompt: 'Select Expense Category' }, class:'form-control form-control-lg' %>
     </div>
 
     <div class="col-md-4 mb-4">
@@ -87,7 +87,7 @@
 
 <script>
   $(document).ready(function(){
-    $('#transaction_user_category_slug').on('change',function(){
+    $('#transaction_user_category_id').on('change',function(){
       let user_category = $(this).val();
 
       if (user_category){
@@ -98,25 +98,26 @@
           success: function(data){
             var options ='';
             $.each(data, function(index, value){
-                options += '<option value="' + value.slug + '">' + value.name + '</option>';
+                options += '<option value="' + value.id + '">' + value.name + '</option>';
             });
-            $('#transaction_expense_category_main_slug').html(options);
+            $('#transaction_expense_category_main_id').html(options);
           }, 
           error: function(xhr, textStatus, errorThrown) {
             console.log('Error fetching options: ' + errorThrown);
           }
         });
       }else{
-        $('#transaction_expense_category_main_slug').html('<option value="">Select Expense Category</option>');
+        $('#transaction_expense_category_main_id').html('<option value="">Select Expense Category</option>');
         $('#transaction_expense_category_id').html('<option value=" ">Select Expense Sub-Category</option>');
       }
     });
-    $('#transaction_expense_category_main_slug').on('change',function(){
+    $('#transaction_expense_category_main_id').on('change',function(){
       let expense_category = $(this).val();
+      let user_category = $('#transaction_user_category_id').val();
 
       if (expense_category){
         $.ajax({
-          url: '/transactions/expense_category/' + expense_category,
+          url: '/transactions/user_category/'+ user_category +'/expense_category/' + expense_category,
           type: 'GET',
           dataType: 'json',
           success: function(data){

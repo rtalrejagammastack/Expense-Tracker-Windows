@@ -12,4 +12,5 @@ class Transaction < ApplicationRecord
   belongs_to :payer, class_name: 'User', optional: true
   belongs_to :user_category
   belongs_to :expense_category, class_name: 'ExpenseSubCategory'
+
 end

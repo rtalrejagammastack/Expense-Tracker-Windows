@@ -4,25 +4,30 @@ class ExpenseCategoriesController < ApplicationController
   before_action :find_expense_category, only: [:show,:edit,:update,:destroy]
 
   def all
-    current_user.expense_categories
-    byebug
     @user_categories = current_user.categories
-    @expense_categories = { }
-    @expense_sub_categories = { }
-    @user_categories.each do |user_category|
-      @expense_categories[user_category.id] =  user_category.fetch_expense_categories
+    @expense_categories = ExpenseCategory.fetch_user_expense_categories(@user_categories)
 
-      @expense_categories[user_category.id].each do |expense_category|
-        @expense_sub_categories[expense_category.id] = expense_category.fetch_sub_categories(user_category)
+    @user_categories.each do |user_category|
+      @expense_categories[user_category].each do |expense_category|
+        @expense_sub_categories[expense_category&.id] = ExpenseSubCategory.fetch_expense_sub_categories_with_nil( user_category.id, expense_category.id )
       end
     end
+
+    # @expense_categories = { }
+    # @expense_sub_categories = { }
+    # @user_categories.each do |user_category|
+    #   @expense_categories[user_category.id] =  ExpenseCategory.fetch_user_expense_categories_with_nil(user_category)
+    #   @expense_categories[user_category.id].each do |expense_category|
+    #     @expense_sub_categories[expense_category.id] = ExpenseSubCategory.fetch_expense_sub_categories_with_nil( user_category.id, expense_category.id )
+    #   end
+    # end
   end
 
   def index
-    @expense_categories = @user_category.fetch_expense_categories
+    @expense_categories = ExpenseCategory.fetch_user_expense_categories_with_nil(@user_category.id)
     @expense_sub_categories = { }
     @expense_categories.each do |expense_category|
-      @expense_sub_categories[expense_category.id] = expense_category.fetch_sub_categories_names(@ser_category)
+      @expense_sub_categories[expense_category.id] = ExpenseSubCategory.fetch_expense_sub_categories_with_nil( @user_category.id, expense_category.id ).pluck(:name).join(', ')
     end
   end
 
@@ -40,7 +45,7 @@ class ExpenseCategoriesController < ApplicationController
   end
 
   def show
-    @expense_sub_categories = @expense_category.fetch_sub_categories(@user_category)  
+    @expense_sub_categories = ExpenseSubCategory.fetch_expense_sub_categories_with_nil( @user_category.id, @expense_category.id )
   end
   
   def edit
@@ -48,9 +53,9 @@ class ExpenseCategoriesController < ApplicationController
 
   def update
     if @expense_category.update(expense_category_params)
-      redirect_to [@user_category,@expense_category], notice: "Successfully update the Expense Category."
+      redirect_to user_category_expense_category_path(@user_category,@expense_category), notice: "Successfully update the Expense Category."
     else
-      redirect_to edit_user_category_expense_category_path(@user_category,@expense_category), alert: "Unable to update Expense Category.Try Again..."
+      redirect_to :edit, status: :unprocessable_entity, alert: "Unable to update Expense Category.Try Again..."
     end
   end
 
@@ -76,3 +81,7 @@ class ExpenseCategoriesController < ApplicationController
     @expense_category = ExpenseCategory.friendly.find_by_slug(params[:slug])
   end
 end
+
+# ExpenseCategory.all.where(user_category_id:[@user_categories.ids,nil]).group_by(&:user_category_id)
+# User.first.expense_categories.where(show:true).group_by(&:user_category)
+# ExpenseCategory.all.where(user_category_id:[cate,nil]).where(show:true).group_by(&:user_category)

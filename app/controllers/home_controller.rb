@@ -1,15 +1,7 @@
 class HomeController < ApplicationController
   before_action :authenticate_user!
   
-  def expenses
-    
-  end
-  
-  def incomes
+  def index 
 
-  end
-  
-  def calendar
-    
   end
 end

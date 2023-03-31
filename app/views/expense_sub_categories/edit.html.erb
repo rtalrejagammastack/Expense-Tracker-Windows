@@ -1,6 +1,6 @@
 <h1 class="text-center"> Edit Expense Sub Category For <%= @expense_category.name %> Category </h1>
 
-<%= form_with model: @expense_sub_category, url: category_expense_category_expense_sub_category_path(@user_category,@expense_category,@expense_sub_category) do |form| %>
+<%= form_with model: [@user_category,@expense_category,@expense_category.sub_categories.build] do |form| %>
       
   <div class="row">
     <div class="col-md-4 mb-4">

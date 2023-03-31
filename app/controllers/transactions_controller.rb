@@ -7,35 +7,43 @@ class TransactionsController < ApplicationController
     @transaction_statuses = TransactionStatus.all
     @transaction_modes = TransactionMode.all
   end
+  
   def create
-    @t = TransactionType.find_by_name(transaction_params[:type])
-    @user_category = current_user.categories.find_by_slug(transaction_params[:user_category_slug]) 
+    transaction_type = TransactionType.find_by_name(params[:transaction][:type])
     @transaction = Transaction.new(transaction_params)
-    @transaction.type =  @t
-    @transaction.user_category = @user_category
-    
+    @transaction.type =  transaction_type
+
+    if @transaction.type == TransactionType.find_by_name("Expense")
+      @transaction.payer = current_user
+    else
+      @transaction.receiver = current_user
+    end
+
     if @transaction.save
       redirect_to home_path, notice: "Transaction Successfully Created."
     else
-      render :new
+      render :new, status: :unprocessable_entity, alert: "Unable to create Transaction.Try Again..."
     end
   end
 
   def fetch_expense_categories
-    category = current_user.categories.find_by_slug(params[:slug])
-    options = category.fetch_expense_categories
-    render json: options.to_json(only: [:slug, :name])
+    user_category = current_user.categories.find_by_id(params[:id])
+    options = ExpenseCategory.fetch_user_expense_categories_with_nil( user_category.id )
+    render json: options.to_json(only: [:id, :name])
   end
 
   def fetch_expense_sub_categories
-    expense_categories = ExpenseCategory.fetch_user_expense_categories(current_user.categories.pluck(:id))
-    expense_category = expense_categories.find_by_slug(params[:slug])
-    options = expense_category.fetch_sub_categories(expense_category.user_category_id)
-    render json: options.to_json(only: [:slug, :name])  
+    expense_category = ExpenseCategory.find_by_id(params[:id])
+    user_category = current_user.categories.find_by_id(params[:user_category_id])
+    options = ExpenseSubCategory.fetch_expense_sub_categories_with_nil(user_category.id, expense_category.id)
+    render json: options.to_json(only: [:id, :name])  
   end
-
+  
   private
   def transaction_params
-    params.require(:transaction).permit(:title, :receiver_name, :payer_name, :amount, :type, :status_id, :mode_id, :user_category_slug, :expense_category_id, :description)
+    params.require(:transaction).permit(:title, :receiver_name, :payer_name, :amount, :status_id, :mode_id, :user_category_id, :expense_category_id, :description)
   end
 end
+
+# expense_categories = ExpenseCategory.fetch_user_expense_categories(current_user.categories.pluck(:id))
+# expense_category = expense_categories.find_by_slug(params[:slug])

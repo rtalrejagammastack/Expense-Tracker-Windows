@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'calendars/index'
   devise_for :users
 
   devise_scope :user do
@@ -7,24 +8,25 @@ Rails.application.routes.draw do
   end
   
   get '/home', to: 'home#index'
+  get '/expense_categories', to: 'expense_categories#all'
   resources :expenses, only: [:index]
   resources :incomes, only: [:index]
   resources :calendars, only: [:index]
   resources :notifications, only: [:index]
-  get '/expense_categories', to: 'expense_categories#all'
   resources :user_categories, param: :slug do
     resources :expense_categories, param: :slug do
-      resources :expense_sub_categories, param: :slug
+      resources :expense_sub_categories, param: :slug, only: [:new, :create, :edit, :update, :destroy]
     end
   end
   resources :transactions, param: :slug do
     collection do
-      get 'user_category/:slug', param: :slug, to: 'transactions#fetch_expense_categories'
-      get 'expense_category/:slug', param: :slug, to: 'transactions#fetch_expense_sub_categories'
+      get 'user_category/:id', to: 'transactions#fetch_expense_categories'
+      get 'user_category/:user_category_id/expense_category/:id', to: 'transactions#fetch_expense_sub_categories'
     end
   end
 end
 
+# get 'expense_category/:slug', param: :slug, to: 'transactions#fetch_expense_sub_categories'
 # transactions/user_category/:slug
 # transactions/user_category/:user_category_slug/expense_category/:slug
 

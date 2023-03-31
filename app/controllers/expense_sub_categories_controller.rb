@@ -1,8 +1,8 @@
 class ExpenseSubCategoriesController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_user_category
-  before_action :set_expense_category
-  before_action :set_expense_sub_category, only: [:edit,:update,:destroy]
+  before_action :find_user_category
+  before_action :find_expense_category
+  before_action :find_expense_sub_category, only: [:edit,:update,:destroy]
 
   def new
     @expense_sub_category = ExpenseSubCategory.new
@@ -11,11 +11,10 @@ class ExpenseSubCategoriesController < ApplicationController
   def create    
     @expense_sub_category = @expense_category.sub_categories.new(expense_sub_category_params)
 
-    @expense_sub_category.user_category = @user_category
     if @expense_sub_category.save
-      redirect_to category_expense_category_path(@user_category,@expense_category), notice: "Successfully created Expense Sub Category."
+      redirect_to user_category_expense_category_path(@user_category,@expense_category), notice: "Successfully created Expense Sub Category."
     else
-      redirect_to new_category_expense_category_expense_sub_category_path(@user_category,@expense_category), alert: "Unable to create Expense Sub Category.Try Again..."
+      redirect_to :new, status: :unprocessable_entity, alert: "Unable to create Expense Sub Category.Try Again..."
     end
   end
 
@@ -24,39 +23,35 @@ class ExpenseSubCategoriesController < ApplicationController
 
   def update
     if @expense_sub_category.update(expense_sub_category_params)
-      redirect_to category_expense_category_path(@user_category,@expense_category), notice: "Successfully update the Expense Sub Category."
+      redirect_to user_category_expense_category_path(@user_category,@expense_category), notice: "Successfully update the Expense Sub Category."
     else
-      redirect_to edit_category_expense_category_expense_sub_category_path(@user_category,@expense_category,@expense_sub_category), alert: "Unable to update Expense Sub Category.Try Again..."
+      redirect_to :edit, status: :unprocessable_entity, alert: "Unable to update Expense Sub Category.Try Again..."
     end
   end
 
   def destroy
     if @expense_sub_category.update(show:false)
-      redirect_to category_expense_category_path(@user_category,@expense_category), notice: "Successfully delete the sub-category."
+      redirect_to user_category_expense_category_path(@user_category,@expense_category), notice: "Successfully delete the sub-category."
     else
-      redirect_to category_expense_category_path(@user_category,@expense_category), notice: "Unable to delete the category.try Again...."
+      redirect_to user_category_expense_category_path(@user_category,@expense_category), notice: "Unable to delete the category.try Again...."
     end
   end
 
   private
   
   def expense_sub_category_params
-    params.require(:expense_sub_category).permit(:name)
+    params.require(:expense_sub_category).permit(:name).merge(user_category_id: @user_category.id)
   end
 
-  def ids_params
-    params.permit(:category_id,:expense_category_id,:id)
+  def find_user_category
+    @user_category = UserCategory.friendly.find_by_slug(params[:user_category_slug])
   end
 
-  def set_user_category
-    @user_category = UserCategory.find_by_id(ids_params[:category_id])
+  def find_expense_category
+    @expense_category = ExpenseCategory.friendly.find_by_slug(params[:expense_category_slug])
   end
 
-  def set_expense_category
-    @expense_category = ExpenseCategory.find_by_id(ids_params[:expense_category_id])
-  end
-
-  def set_expense_sub_category
-    @expense_sub_category = ExpenseSubCategory.find_by_id(ids_params[:id])
+  def find_expense_sub_category
+    @expense_sub_category = ExpenseSubCategory.friendly.find_by_slug(params[:slug])
   end
 end
