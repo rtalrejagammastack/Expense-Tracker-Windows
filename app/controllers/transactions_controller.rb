@@ -4,7 +4,8 @@
 class TransactionsController < ApplicationController
   before_action :authenticate_user!
   before_action :find_user_category
-  before_action :fetch_transaction_form_data, only: %i[new]
+  before_action :find_transaction, only: %i[edit update]
+  before_action :fetch_transaction_form_data, only: %i[new edit]
 
   def new
     @transaction = Transaction.new
@@ -15,7 +16,7 @@ class TransactionsController < ApplicationController
     @transaction = Transaction.new(transaction_params)
     @transaction.type =  transaction_type
     
-    if @transaction.type == TransactionType.find_by_name('Expense')
+    if transaction_type == TransactionType.find_by_name('Expense')
       @transaction.payer = current_user
     else
       @transaction.receiver = current_user
@@ -29,7 +30,24 @@ class TransactionsController < ApplicationController
   end
 
   def edit
-    
+
+  end
+
+  def update
+    transaction_type = TransactionType.find_by_name(params[:transaction][:type])
+    @transaction_update = transaction_params.merge(type_id: transaction_type.id)
+    if transaction_type.name == TransactionType.find_by_name('Expense')
+      @transaction_update[:payer_id] = current_user.id
+      @transaction_update[:receiver_id] = nil
+    else
+      @transaction_update[:receiver_id] = current_user.id
+      @transaction_update[:payer_id]=nil
+    end
+    if @transaction.update(@transaction_update)
+      redirect_to home_index_path, notice: "Successfully update the Transaction."
+    else
+      render :edit, status: :unprocessable_entity, alert: 'Unable to update Transaction. Try Again....'
+    end
   end
   
   def fetch_expense_categories
@@ -67,5 +85,9 @@ class TransactionsController < ApplicationController
 
   def find_user_category
     @user_category = UserCategory.friendly.find_by_slug(params[:user_category_slug])
+  end
+
+  def find_transaction
+    @transaction = Transaction.friendly.find_by_slug(params[:slug])
   end
 end

@@ -1,0 +1,3 @@
+<%= render partial: 'shared/heading', locals: { heading: "Edit Transaction" } %>
+
+<%= render partial:'form' , locals:{ transaction: @transaction, type: @transaction.type.name }  %>

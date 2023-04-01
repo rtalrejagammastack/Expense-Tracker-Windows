@@ -1,6 +1,7 @@
-<%= render partial:'shared/heading', locals:{ heading:"Transactions" } %>
+<%= render partial:'shared/heading', locals:{ heading:@user_category.name } %>
 
 <div class="d-flex justify-content-around mb-4">
+  <%= link_to "Show Expense Categories", user_category_expense_categories_path(@user_category), class:"btn btn-primary btn-lg btn-rounded shadow" %>
   <%= link_to "Edit Category", edit_user_category_path(@user_category), class:"btn btn-primary btn-lg btn-rounded shadow" %>
   <%= link_to "Delete Category", user_category_path(@user_category), method: :delete, class:"btn btn-danger btn-lg btn-rounded shadow" %>
 </div>
