@@ -3,7 +3,7 @@
   <%= link_to "Delete Category", user_category_path(@user_category), method: :delete, class:"btn btn-danger" %>
 </div>
 
-<%= link_to "Create Transaction", new_transaction_path , class:"btn btn-primary" %>
+<%= render 'modal_transaction' %>
 
 <h1 class="text-center">Transactions</h1>
 
