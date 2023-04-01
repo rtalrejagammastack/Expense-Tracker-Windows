@@ -1,1 +1,67 @@
-Incomes
+<%= render partial:'shared/heading', locals:{ heading:"Income Transactions" } %>
+<%= link_to "New Income", new_transaction_path(type: "Income"), class: "btn btn-primary btn-lg mb-4" %>
+<div class="table-responsive">
+  <table class="table align-middle mb-0 bg-white table-hover">
+    <thead class="table-dark">
+      <tr>
+        <th>Title</th>
+        <th>Amount</th>
+        <th>Payer Name</th>
+        <th>User Category</th>
+        <th>Income Category</th>
+        <th>Status</th>
+        <th>Mode</th>
+        <th>Date</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @incomes_by_date.each do |date,incomes| %>
+        <tr>
+          <td colspan="4"></td>
+          <td class="text-primary"> <strong> <%= date %> </strong> </td>
+          <td colspan="4"></td>
+        </tr>
+        <% incomes.each do |income| %>
+          <tr>
+            <td>
+              <p class="fw-normal mb-1"> <%= income.title.nil? ? income.title : "_"  %> </p>
+            </td>
+            <td>
+              <p class="fw-normal mb-1"> <%= income.amount %> </p>
+            </td>
+            <td>
+              <p class="fw-normal mb-1"> <%= income.payer_name.nil? ? income.payer_name : "_" %> </p>
+            </td>
+            <td>
+              <p class="fw-normal mb-1"> <%= income.user_category.name %> </p>
+            </td>
+            <td>
+              <p class="fw-normal mb-1"> <%= income.expense_category.category.name %> </p>
+              <p class="text-muted mb-0"> <%= income.expense_category.name %> </p>
+            </td>
+            <td>
+              <% if income.status.name == "Complete" %>
+                <span class="badge badge-success rounded-pill d-inline"> <%= income.status.name %> </span>
+              <% else %>
+                <span class="badge badge-danger rounded-pill d-inline"> <%= income.status.name %> </span>
+              <% end %>
+            </td>
+            <td>
+              <p class="fw-normal mb-1"> <%= income.mode.name %> </p>
+            </td>
+            <td>
+              <p class="fw-normal mb-1"> <%= income.created_at.to_date %> </p>
+            </td>
+            <td>
+              <%= link_to "Edit", edit_transaction_path(income,type:"Income"), class:"btn btn-link btn-rounded btn-sm fw-bold px-3" %>
+              <%= link_to "Destroy", transaction_path(income), method: :delete, class:"btn btn-link btn-rounded btn-sm fw-bold px-3", data: {
+                  confirm: 'Are you sure to delete this income Transaction?'
+              } %>
+            </td>
+          </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+</div>

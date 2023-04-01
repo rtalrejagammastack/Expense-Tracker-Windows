@@ -109,3 +109,16 @@ db:seeds
 
 # expense_categories = User.first.categories.first.sub_categories
 # expense_sub_categories = User.first.sub_catgeories
+
+
+Devise registration
+ActionView::Base.field_error_proc = Proc.new do |html_tag, instance|
+  html_tag.html_safe
+end
+<%= render "devise/shared/error_messages", resource: resource %>
+
+<style>
+  /* .field_with_errors .form-control {
+  border: 1px solid #a8a8a8;
+} */
+</style>

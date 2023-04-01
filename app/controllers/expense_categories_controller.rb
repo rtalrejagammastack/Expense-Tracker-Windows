@@ -50,7 +50,7 @@ class ExpenseCategoriesController < ApplicationController
     if @expense_category.update(expense_category_params)
       redirect_to user_category_expense_category_path(@user_category, @expense_category), notice: 'Successfully update the Expense Category.'
     else
-      redirect_to :edit, status: :unprocessable_entity, alert: 'Unable to update Expense Category.Try Again...'
+      render :edit, status: :unprocessable_entity, alert: 'Unable to update Expense Category.Try Again...'
     end
   end
 
@@ -58,7 +58,7 @@ class ExpenseCategoriesController < ApplicationController
     if @expense_category.update(show: false) && @expense_category.sub_categories.update(show: false)
       redirect_to user_category_expense_categories_path(@user_category), notice: 'Successfully delete the category.'
     else
-      redirect_to category_expense_categories_path(@user_category), notice: 'Unable to delete the category.try Again....'
+      redirect_to category_expense_categories_path(@user_category), notice: 'Unable to delete the category.Try Again....'
     end
   end
 

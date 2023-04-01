@@ -17,7 +17,7 @@ class ExpenseSubCategoriesController < ApplicationController
     if @expense_sub_category.save
       redirect_to user_category_expense_category_path(@user_category, @expense_category), notice: 'Successfully created Expense Sub Category.'
     else
-      redirect_to :new, status: :unprocessable_entity, alert: 'Unable to create Expense Sub Category.Try Again...'
+      render :new, status: :unprocessable_entity, alert: 'Unable to create Expense Sub Category.Try Again...'
     end
   end
 
@@ -28,7 +28,7 @@ class ExpenseSubCategoriesController < ApplicationController
     if @expense_sub_category.update(expense_sub_category_params)
       redirect_to user_category_expense_category_path(@user_category, @expense_category), notice: 'Successfully update the Expense Sub Category.'
     else
-      redirect_to :edit, status: :unprocessable_entity, alert: 'Unable to update Expense Sub Category.Try Again...'
+      render :edit, status: :unprocessable_entity, alert: 'Unable to update Expense Sub Category.Try Again...'
     end
   end
 

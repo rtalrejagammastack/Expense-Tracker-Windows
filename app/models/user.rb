@@ -8,11 +8,11 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   # Callbacks
-  after_commit :create_default_category, on: :create
+  after_create :create_default_category
 
   # Validations
   validates :name, presence: true
-  validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }
+  validates :email, presence: true, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }
   validates :phone_number, presence: true, length: { is: 10, message: 'must have 10 length.' }
 
   # Associations

@@ -41,10 +41,17 @@
         <%= form.select :mode_id, options_for_select(@modes_options),{ prompt: 'Select Mode' }, class:'form-control form-control-lg' %>
     </div>
 
-    <div class="col-md-4 mb-4">
-        <%= form.label :user_category_id, class:"form-label" %>
-        <%= form.select :user_category_id, options_for_select( @user_categories_options ), { prompt: 'Select User Category' }, class:'form-control form-control-lg' %>
-    </div>
+    <% if @user_category %>
+      <div class="col-md-4 mb-4">
+          <%= form.label :user_category_id, class:"form-label" %>
+          <%= form.text_field :user_category_id, autofocus: true, class:"form-control form-control-lg", value: @user_category.name, readonly:true %>
+      </div>
+    <% else %>
+      <div class="col-md-4 mb-4">
+          <%= form.label :user_category_id, class:"form-label" %>
+          <%= form.select :user_category_id, options_for_select( @user_categories_options ), { prompt: 'Select User Category' }, class:'form-control form-control-lg' %>
+      </div>
+    <% end %>
 
     <div class="col-md-4 mb-4">
         <%= form.label :expense_category, class:"form-label" %>
@@ -91,7 +98,7 @@
             $.each(data, function(index, value){
                 options += '<option value="' + value.id + '">' + value.name + '</option>';
             });
-            $('#transaction_expense_category_main_id').html('<option value="">Select Expense Category</option>'+options);
+            $('#transaction_expense_category_main_id').html(options);
           }, 
           error: function(xhr, textStatus, errorThrown) {
             console.log('Error fetching options: ' + errorThrown);
@@ -116,7 +123,7 @@
             $.each(data, function(index, value){
                 options += '<option value="' + value.id + '">' + value.name + '</option>';
             });
-            $('#transaction_expense_category_id').html('<option value=" ">Select Expense Sub-Category</option>'+options);
+            $('#transaction_expense_category_id').html(options);
           }, 
           error: function(xhr, textStatus, errorThrown) {
             console.log('Error fetching options: ' + errorThrown);

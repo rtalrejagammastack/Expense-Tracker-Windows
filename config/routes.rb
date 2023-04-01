@@ -7,8 +7,8 @@ Rails.application.routes.draw do
     get 'users', to: 'devise/registrations#new'
   end
   
-  get '/home', to: 'home#index'
   get '/expense_categories', to: 'expense_categories#all'
+  resources :home, only: [:index] 
   resources :expenses, only: [:index]
   resources :incomes, only: [:index]
   resources :calendars, only: [:index]

@@ -5,9 +5,8 @@
     <%= user_category.name %>
     <%= link_to "Show Category Details", user_category_expense_categories_path(user_category), class:"btn btn-primary" %>
   </div>
-
   <div class="container d-flex">
-    <% @expense_categories[user_category]&.each do |expense_category| %>
+    <% @expense_categories[user_category.id].each do |expense_category| %>
       <div class="card">
         <div class="card-body">
           <h5 class="card-title text-center"> <%= expense_category.name %> </h5>

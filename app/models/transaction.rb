@@ -5,6 +5,11 @@ class Transaction < ApplicationRecord
   extend FriendlyId
   friendly_id :generated_slug, use: :slugged
 
+  default_scope { order(created_at: :desc) }
+  
+  # Validations
+  validates :amount, presence: :true
+
   # Associations
   belongs_to :status, class_name: 'TransactionStatus'
   belongs_to :type, class_name: 'TransactionType'

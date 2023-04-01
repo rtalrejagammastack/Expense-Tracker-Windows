@@ -1,10 +1,1 @@
-<%= form_with model: @user_category do |form| %>
-  <div class="form-outline mb-4 w-25">
-      <%= form.text_field :name,class:'form-control form-control-lg' %>
-      <%= form.label :name,class: 'form-label' %>
-      <% @user_category.errors.full_messages_for(:name).each do |message| %>
-        <div><%= message %></div>
-      <% end %>
-  </div>
-  <%= form.submit "Create Category",class:"btn btn-primary" %>
-<% end %>
+<%= render partial:'form', locals:{ user_category:@user_category } %>

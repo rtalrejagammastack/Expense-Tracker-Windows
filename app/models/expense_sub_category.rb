@@ -6,7 +6,7 @@ class ExpenseSubCategory < ApplicationRecord
   friendly_id :generated_slug, use: :slugged
 
   # Callbacks
-  before_validation :capital_first_letter
+  after_validation :capital_first_letter
 
   # Validations
   validates :name, presence: true
