@@ -1,7 +1,7 @@
-<h1 class="text-center"> New Expense Sub Category For <%= @expense_category.name %> Category </h1>
+<h1 class="text-center">  </h1>
+<%= render partial: 'shared/heading', locals: { heading: "New Expense Sub Category For #{ @expense_category.name } Category" } %>
 
-<%= form_with model: [@user_category,@expense_category,@expense_category.sub_categories.build] do |form| %>
-      
+<%= form_with model: [@user_category,@expense_category,@expense_category.sub_categories.build] do |form| %>    
   <div class="row">
     <div class="col-md-4 mb-4">
       <div class="form-outline">
@@ -10,6 +10,5 @@
       </div>
     </div>
   </div>
-
-  <%= form.submit class:"btn btn-success" %>
+  <%= form.submit class:"btn btn-success btn-lg btn-rounded shadow" %>
 <% end %>

@@ -1,7 +1,6 @@
-<h1 class="text-center"> New Expense Category For <%= @user_category.name %> Category </h1>
+<%= render partial: 'shared/heading', locals: { heading: "New Expense Category For #{ @user_category.name } Category" } %>
 
 <%= form_with model: [ @user_category, @user_category.expense_categories.build ] do |form| %>
-      
   <div class="row">
     <div class="col-md-4 mb-4">
       <div class="form-outline">
@@ -10,6 +9,6 @@
       </div>
     </div>
   </div>
-  <%= form.submit "Create Expense Category", class:"btn btn-success" %>
+  <%= form.submit class:"btn btn-success btn-rounded shadow btn-lg" %>
 <% end %>
 

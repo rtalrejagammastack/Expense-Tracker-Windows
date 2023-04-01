@@ -1,20 +1,40 @@
-<h1 class="text-center"> Expense Categories </h1>
+<%= render partial: 'shared/heading', locals: { heading:'Expense Categories' } %>
 
 <% @user_categories.each do |user_category| %>
-  <div class="d-flex justify-content-around"> 
-    <%= user_category.name %>
-    <%= link_to "Show Category Details", user_category_expense_categories_path(user_category), class:"btn btn-primary" %>
-  </div>
-  <div class="container d-flex">
-    <% @expense_categories[user_category.id].each do |expense_category| %>
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title text-center"> <%= expense_category.name %> </h5>
-          <% @expense_sub_categories[expense_category.id].each do |expense_sub_category| %>
-            <p class="card-text"> <%= expense_sub_category.name %> </p>
-          <% end %>
-        </div>
-      </div>  
-    <% end %>
+  <div class="card bg-light mb-5">
+    <div class="card-header text-center mb-3">
+      <%= user_category.name %>
+    </div>
+    <div class="d-flex mb-3"> 
+      <%= link_to "Show Category Details", user_category_expense_categories_path(user_category), class:"btn btn-primary btn-lg btn-rounded shadow" %>
+    </div>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        <% @expense_categories[user_category.id].each do |expense_category| %>
+          <div class="col">
+            <div class="card border border-dark mb-3">
+              <div class="card-header">
+                <%= user_category.name %>
+              </div>
+              <%# <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+                <img src="https://mdbcdn.b-cdn.net/img/new/standard/nature/111.webp" class="img-fluid"/>
+                <a href="#!">
+                  <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+                </a>
+              </div> %>
+              <div class="card-body">
+                <h5 class="card-title"> <%= expense_category.name %> </h5>
+                <ul class="list-group list-group-light list-group-small">
+                <% @expense_sub_categories[expense_category.id].each do |expense_sub_category| %>
+                  <li class="list-group-item px-4"> <%= expense_sub_category.name %> </li>
+                <% end %>
+                </ul>
+              </div>
+              <div class="card-footer bg-light px-3">
+                <%= link_to "Show Details", user_category_expense_category_path(user_category, expense_category), class:"card-link" %>
+              </div>
+            </div>  
+          </div>
+        <% end %>
+    </div>
   </div>
 <% end %>

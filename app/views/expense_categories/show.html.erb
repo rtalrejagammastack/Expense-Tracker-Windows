@@ -1,37 +1,34 @@
-<h1 class="text-center"> <%= @expense_category.name %> </h1>
+<%= render partial: 'shared/heading', locals: { heading: @expense_category.name } %>
 
-<div class="col-lg-12">
-  <div class="card mt-5 mb-5 rounded-0">
-    <div class="card-body">
-        <h2 class="text-center"> Listing Expense Sub Categories </h2>
-    </div>
-  </div>
+<%= render partial: 'shared/heading', locals: { heading: "Listing Expense Sub Categories" } %>
 
-  <%= link_to "New Expense Sub Category", new_user_category_expense_category_expense_sub_category_path(@user_category,@expense_category), class:"btn btn-primary btn-lg mb-4 rounded-0" %>
+<%= link_to "New Expense Sub Category", new_user_category_expense_category_expense_sub_category_path(@user_category,@expense_category), class:"btn btn-primary btn-rounded shadow btn-lg mb-4" %>
 
-  <table class="table table-bordered">
-    <thead>
-        <tr>
-            <th class="text-center">Name</th>
-            <th class="text-center">Actions</th>
-        </tr>
+<div class="table-responsive">
+  <table class="table align-middle mb-3 bg-white table-hover">
+    <thead class="table-dark">
+      <tr>
+        <th class="text-center">Name</th>
+        <th class="text-center">Actions</th>
+      </tr>
     </thead>
-    <tbody>
-      <% @expense_sub_categories.each do |sub_category| %>
-        <tr>
-          <td><%= sub_category.name %> </td>
-          <td>
-            <% if sub_category.user? %>
-              <%= link_to "Edit",edit_user_category_expense_category_expense_sub_category_path(@user_category,@expense_category,sub_category),class:"btn btn-primary btn-lg" %>
-              <%= link_to "Delete",user_category_expense_category_expense_sub_category_path(@user_category,@expense_category,sub_category), method: :delete,class:"btn btn-danger btn-lg", data: {
-                  confirm: 'Are you sure to delete this Expense Sub Category?'
-              } %>
-            <% else %>
-              <h2 class="text-danger"> You cannot do any actions on pre-defined categories.
-            <% end %>
-          </td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-</div>
+  <tbody>
+    <% @expense_sub_categories.each do |sub_category| %>
+      <tr>
+        <td>
+          <p class="fw-normal mb-1"> <%= sub_category.name %> </p>
+        </td>
+        <td>
+          <% if sub_category.user? %>
+            <%= link_to "Edit",edit_user_category_expense_category_expense_sub_category_path(@user_category,@expense_category,sub_category),class:"btn btn-link btn-sm fw-boldy" %>
+            <%= link_to "Delete",user_category_expense_category_expense_sub_category_path(@user_category,@expense_category,sub_category), method: :delete,class:"btn btn-link btn-sm fw-boldy", data: {
+                confirm: 'Are you sure to delete this Expense Sub Category?'
+            } %>
+          <% else %>
+            <p class="text-danger"> You cannot do any actions on pre-defined categories.</p>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
