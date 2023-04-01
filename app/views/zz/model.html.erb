@@ -1,0 +1,24 @@
+
+<!-- Button trigger modal -->
+<div class="fixed-bottom d-flex justify-content-end mr-2 pr-3 pb-3">
+  <%= link_to "#", class:"btn btn-success btn-floating btn-lg btn-rounded shadow-lg", data: { mdb_toggle:"modal", mdb_target: "#myModal" } do %>
+    <i class="fas fa-plus"></i>
+  <% end %>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Select Transaction Type</h5>
+        <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <% transaction_types.each do |type| %>
+          <%= link_to type.name, new_transaction_path(type: type.name), class:"btn btn-secondary" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

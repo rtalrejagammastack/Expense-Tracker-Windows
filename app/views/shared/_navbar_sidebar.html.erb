@@ -118,30 +118,16 @@
   </div>
 </main>
 
-<!-- Button trigger modal -->
-<div class="fixed-bottom d-flex justify-content-end mr-2 pr-3 pb-3">
-  <%= link_to "#", class:"btn btn-success btn-floating btn-lg shadow-lg", data: { mdb_toggle:"modal", mdb_target: "#myModal" } do %>
-    <i class="fas fa-plus"></i>
-  <% end %>
-</div>
-
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Select Transaction Type</h5>
-        <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <%=  %>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">
-          Close
-        </button>
-      </div>
-    </div>
-  </div>
+<div class="fixed-action-btn" id="fixed1">
+  <a class="btn btn-floating text-white btn-lg " style="background-color: #25d366;">
+    <i class="fas fa-pencil-alt"></i>
+  </a>
+  <ul class="list-unstyled">
+    <% transaction_types.each do |type| %>
+      <li>
+        <%= link_to type.name, new_transaction_path(type: type.name), class:"btn text-white btn-floating btn-lg", style:"background-color: #333333;" %>
+      </li>
+    <% end %>
+  </ul>
 </div>
 <!--Main layout-->
