@@ -22,7 +22,8 @@ class UserCategoriesController < ApplicationController
   end
 
   def show
-    @transactions = @user_category.transactions
+    transactions = @user_category.transactions.group_by { |transaction| transaction.created_at.to_date }
+    @transactions_by_date = transactions.map { |date, transaction| [date, transaction] }.to_h
   end
 
   def edit

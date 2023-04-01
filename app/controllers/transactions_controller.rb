@@ -22,10 +22,14 @@ class TransactionsController < ApplicationController
     end
     
     if @transaction.save
-      redirect_to home_index_path, notice: 'Transaction Successfully Created.'
+      redirect_to new_transaction_path, notice: 'Transaction Successfully Created.'
     else
-      #  new_transaction_path, status: :unprocessable_entity, alert: 'Unable to create Transaction.Try Again...'
+      render :new, status: :unprocessable_entity, alert: 'Unable to create Transaction.Try Again...'
     end
+  end
+
+  def edit
+    
   end
   
   def fetch_expense_categories

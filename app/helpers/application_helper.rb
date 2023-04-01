@@ -6,6 +6,6 @@ module ApplicationHelper
     current_user.categories if user_signed_in?
   end
   def transaction_types
-    TransactionType.all if user_signed_in?
+    TransactionType.all
   end
 end
