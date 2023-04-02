@@ -5,6 +5,8 @@ class Transaction < ApplicationRecord
   extend FriendlyId
   friendly_id :generated_slug, use: :slugged
 
+  acts_as_paranoid column: :destroyed_at
+
   default_scope { order(created_at: :desc) }
   
   # Validations

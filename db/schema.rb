@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_03_28_124203) do
+ActiveRecord::Schema.define(version: 2023_04_02_053854) do
 
   create_table "expense_categories", force: :cascade do |t|
     t.string "name"
@@ -19,6 +19,8 @@ ActiveRecord::Schema.define(version: 2023_03_28_124203) do
     t.string "slug"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.datetime "destroyed_at"
+    t.index ["destroyed_at"], name: "index_expense_categories_on_destroyed_at"
     t.index ["slug"], name: "index_expense_categories_on_slug", unique: true
     t.index ["user_category_id"], name: "index_expense_categories_on_user_category_id"
   end
@@ -31,7 +33,9 @@ ActiveRecord::Schema.define(version: 2023_03_28_124203) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "slug"
+    t.datetime "destroyed_at"
     t.index ["category_id"], name: "index_expense_sub_categories_on_category_id"
+    t.index ["destroyed_at"], name: "index_expense_sub_categories_on_destroyed_at"
     t.index ["slug"], name: "index_expense_sub_categories_on_slug", unique: true
     t.index ["user_category_id"], name: "index_expense_sub_categories_on_user_category_id"
   end
@@ -52,18 +56,24 @@ ActiveRecord::Schema.define(version: 2023_03_28_124203) do
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.datetime "destroyed_at"
+    t.index ["destroyed_at"], name: "index_transaction_modes_on_destroyed_at"
   end
 
   create_table "transaction_statuses", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.datetime "destroyed_at"
+    t.index ["destroyed_at"], name: "index_transaction_statuses_on_destroyed_at"
   end
 
   create_table "transaction_types", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.datetime "destroyed_at"
+    t.index ["destroyed_at"], name: "index_transaction_types_on_destroyed_at"
   end
 
   create_table "transactions", force: :cascade do |t|
@@ -82,6 +92,8 @@ ActiveRecord::Schema.define(version: 2023_03_28_124203) do
     t.string "slug"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.datetime "destroyed_at"
+    t.index ["destroyed_at"], name: "index_transactions_on_destroyed_at"
     t.index ["expense_category_id"], name: "index_transactions_on_expense_category_id"
     t.index ["mode_id"], name: "index_transactions_on_mode_id"
     t.index ["payer_id"], name: "index_transactions_on_payer_id"
@@ -100,6 +112,8 @@ ActiveRecord::Schema.define(version: 2023_03_28_124203) do
     t.string "slug"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.datetime "destroyed_at"
+    t.index ["destroyed_at"], name: "index_user_categories_on_destroyed_at"
     t.index ["slug"], name: "index_user_categories_on_slug", unique: true
     t.index ["user_id"], name: "index_user_categories_on_user_id"
   end
@@ -114,6 +128,8 @@ ActiveRecord::Schema.define(version: 2023_03_28_124203) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "name"
     t.integer "phone_number"
+    t.datetime "destroyed_at"
+    t.index ["destroyed_at"], name: "index_users_on_destroyed_at"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

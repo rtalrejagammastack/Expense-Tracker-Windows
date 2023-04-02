@@ -5,6 +5,8 @@ class UserCategory < ApplicationRecord
   extend FriendlyId
   friendly_id :generated_slug, use: :slugged
 
+  acts_as_paranoid column: :destroyed_at
+
   # Callbacks
   after_validation :capital_first_letter
   
@@ -13,7 +15,7 @@ class UserCategory < ApplicationRecord
 
   # Associations
   belongs_to :user
-  has_many :expense_categories
+  has_many :expense_categories, dependent: :destroy
   has_many :sub_categories, through: :expense_categories
   has_many :transactions
 end
