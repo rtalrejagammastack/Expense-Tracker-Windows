@@ -6,6 +6,7 @@ class UserCategoriesController < ApplicationController
   before_action :find_user_category, only: %i[edit show update destroy]
 
   def index
+    @user_categories = current_user.categories
   end
 
   def new
@@ -39,7 +40,7 @@ class UserCategoriesController < ApplicationController
 
   def destroy
     if @user_category.destroy
-      redirect_to home_path, notice: 'Category Successfully Deleted.'
+      redirect_to user_categories_path, notice: 'Category Successfully Deleted.'
     else
       redirect_to @user_category, alert: 'Category Deletion Failed.'
     end

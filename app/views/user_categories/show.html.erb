@@ -3,7 +3,9 @@
 <div class="d-flex justify-content-around mb-4">
   <%= link_to "Show Expense Categories", user_category_expense_categories_path(@user_category), class:"btn btn-primary btn-lg btn-rounded shadow" %>
   <%= link_to "Edit Category", edit_user_category_path(@user_category), class:"btn btn-primary btn-lg btn-rounded shadow" %>
-  <%= link_to "Delete Category", user_category_path(@user_category), method: :delete, class:"btn btn-danger btn-lg btn-rounded shadow" %>
+  <%= link_to "Delete Category", user_category_path(@user_category), method: :delete, class:"btn btn-danger btn-lg btn-rounded shadow", data:{
+    confirm: 'Are you sure to delete this category?'
+  } %>
 </div>
 
 <%= render 'modal_transaction' %>
