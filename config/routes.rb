@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  get 'calendars/index'
+  mount ActionCable.server => '/cable'
   devise_for :users
 
   devise_scope :user do

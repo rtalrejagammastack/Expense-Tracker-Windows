@@ -1,0 +1,10 @@
+<%= render partial:'shared/heading', locals: { heading:'Notifications' } %>
+
+<div id="notifications-container">
+  <ul id="notifications-list">
+    <% @notifications.each do |notification| %>
+      <%= render 'notification', notification: notification %>
+    <% end %>
+  </ul>
+  <button id="mark-all-as-read-button">Mark all as read</button>
+</div>
