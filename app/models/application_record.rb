@@ -11,4 +11,5 @@ class ApplicationRecord < ActiveRecord::Base
   def generated_slug
     @random_slug ||= persisted? ? friendly_id : SecureRandom.hex(8)
   end
+  WillPaginate.per_page = 10
 end

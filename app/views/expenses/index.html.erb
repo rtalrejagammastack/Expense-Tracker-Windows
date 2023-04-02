@@ -2,12 +2,6 @@
 
 <%= link_to "New Expense", new_transaction_path(type: "Expense"), class: "btn btn-primary btn-lg btn-rounded shadow mb-4" %>
 
-<%= search_form_for @q, url: expenses_path do |f| %>
-
-  <%= f.label :amount_cont %>
-  <%= f.search_field :amount_cont %>
-
-  <%= f.submit %>
-<% end %>
-
 <%= render partial: 'shared/transactions', locals: { transactions: @expenses_by_date, income:false, expense: true } %>
+
+<%= will_paginate @transactions, renderer: BootstrapPagination::Rails %>

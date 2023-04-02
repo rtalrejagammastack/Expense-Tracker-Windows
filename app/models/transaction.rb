@@ -9,6 +9,8 @@ class Transaction < ApplicationRecord
 
   has_many_attached :documents, dependent: :destroy
 
+  self.per_page = 10
+
   default_scope { order(created_at: :desc) }
   
   scope :all_transactions, ->(current_user) { where('payer_id = ? OR receiver_id = ?', current_user.id, current_user.id) }

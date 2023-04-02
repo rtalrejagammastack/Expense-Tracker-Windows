@@ -4,6 +4,8 @@ require "rails/all"
 
 require 'securerandom'
 
+require 'will_paginate-bootstrap'
+
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
