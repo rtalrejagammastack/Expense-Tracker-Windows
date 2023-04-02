@@ -27,6 +27,4 @@ main
 Slug
 Transaction
 Gems
-Fix delete
-ElasticSearch
-
+Notification Feature
