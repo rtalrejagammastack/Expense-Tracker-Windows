@@ -54,3 +54,48 @@
   overflow-x: hidden;
   overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
 }
+
+
+
+
+#notifications-count {
+  background-color: red;
+  color: white;
+  padding: 2px 4px;
+  border-radius: 50%;
+  font-size: 12px;
+  margin-left: 4px;
+}
+
+#notifications-bell {
+  display: inline-block;
+  position: relative;
+  width: 20px;
+  height: 20px;
+  margin-left: 10px;
+}
+
+#notifications-bell:before,
+#notifications-bell:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 0;
+  height: 0;
+  border: 10px solid transparent;
+}
+
+#notifications-bell:before {
+  border-bottom-color: black;
+}
+
+#notifications-bell:after {
+  border-bottom-color: white;
+  margin-top: -2px;
+  margin-right: -10px;
+}
+
+#notifications-bell.has-notifications:before {
+  border-bottom-color: red;
+}

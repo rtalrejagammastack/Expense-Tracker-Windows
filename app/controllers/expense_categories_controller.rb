@@ -33,6 +33,9 @@ class ExpenseCategoriesController < ApplicationController
     @expense_category = @user_category.expense_categories.create(expense_category_params)
 
     if @expense_category.save
+      # Create a new notification for the user
+      create_notification(@expense_category.user_category.user.id, "New expense category added: #{expense_category_params[:name]}")
+
       redirect_to user_category_expense_category_path(@user_category, @expense_category), notice: 'Successfully created Expense Category.'
     else
       render :new, status: :unprocessable_entity, alert: 'Unable to create Expense Category.Try Again...'
@@ -63,6 +66,13 @@ class ExpenseCategoriesController < ApplicationController
   end
 
   private
+
+  def create_notification(user_id, content)
+    notification = Notification.new
+    notification.user_id = user_id
+    notification.content = content
+    notification.save
+  end
 
   def expense_category_params
     params.require(:expense_category).permit(:name)

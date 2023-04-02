@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_04_02_113322) do
+ActiveRecord::Schema.define(version: 2023_04_02_191117) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -78,6 +78,15 @@ ActiveRecord::Schema.define(version: 2023_04_02_113322) do
     t.index ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type"
   end
 
+  create_table "notifications", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.text "content"
+    t.boolean "read", default: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_notifications_on_user_id"
+  end
+
   create_table "transaction_modes", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
@@ -116,6 +125,7 @@ ActiveRecord::Schema.define(version: 2023_04_02_113322) do
   add_foreign_key "expense_categories", "user_categories"
   add_foreign_key "expense_sub_categories", "expense_categories", column: "category_id"
   add_foreign_key "expense_sub_categories", "user_categories"
+  add_foreign_key "notifications", "users"
   add_foreign_key "transactions", "expense_sub_categories", column: "expense_category_id"
   add_foreign_key "transactions", "transaction_modes", column: "mode_id"
   add_foreign_key "transactions", "transaction_statuses", column: "status_id"

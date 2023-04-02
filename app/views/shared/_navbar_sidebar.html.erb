@@ -31,6 +31,11 @@
         <%= link_to "Incomes", incomes_path, class:"list-group-item list-group-item-action py-2 ripple" %>
         <%= link_to "Calendar", calendars_path, class:"list-group-item list-group-item-action py-2 ripple" %>
         <%= link_to "Expense Categories", expense_categories_path, class:"list-group-item list-group-item-action py-2 ripple" %>
+        <div class="list-group-item list-group-item-action py-2 ripple">
+          <%= link_to "Notifications", notifications_path %>
+          <span id="notifications-count"><%= current_user.notifications.unread.count %></span>
+          <span id="notifications-bell"></span>
+        </div>
       </div>
     </div>
   </nav>
