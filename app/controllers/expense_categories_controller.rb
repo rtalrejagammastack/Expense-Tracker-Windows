@@ -55,7 +55,7 @@ class ExpenseCategoriesController < ApplicationController
   end
 
   def destroy
-    if @expense_category.update(show: false) && @expense_category.sub_categories.update(show: false)
+    if @expense_category.destroy
       redirect_to user_category_expense_categories_path(@user_category), notice: 'Successfully delete the category.'
     else
       redirect_to category_expense_categories_path(@user_category), notice: 'Unable to delete the category.Try Again....'

@@ -17,5 +17,5 @@ class UserCategory < ApplicationRecord
   belongs_to :user
   has_many :expense_categories, dependent: :destroy
   has_many :sub_categories, through: :expense_categories
-  has_many :transactions
+  has_many :transactions, dependent: :destroy
 end

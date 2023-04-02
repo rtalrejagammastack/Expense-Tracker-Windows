@@ -4,7 +4,7 @@
 class TransactionsController < ApplicationController
   before_action :authenticate_user!
   before_action :find_user_category
-  before_action :find_transaction, only: %i[edit update]
+  before_action :find_transaction, only: %i[edit update destroy]
   before_action :fetch_transaction_form_data, only: %i[new edit]
 
   def new
@@ -30,7 +30,6 @@ class TransactionsController < ApplicationController
   end
 
   def edit
-
   end
 
   def update
@@ -47,6 +46,14 @@ class TransactionsController < ApplicationController
       redirect_to home_index_path, notice: "Successfully update the Transaction."
     else
       render :edit, status: :unprocessable_entity, alert: 'Unable to update Transaction. Try Again....'
+    end
+  end
+
+  def destroy
+    if @transaction.destroy
+      redirect_to home_index_path, notice: 'Transaction Successfully Deleted.'
+    else
+      redirect_to home_index_path, alert: 'Transaction Deletion Failed.'
     end
   end
   

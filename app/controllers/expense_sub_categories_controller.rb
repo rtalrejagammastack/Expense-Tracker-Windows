@@ -33,10 +33,10 @@ class ExpenseSubCategoriesController < ApplicationController
   end
 
   def destroy
-    if @expense_sub_category.update(show: false)
+    if @expense_sub_category.destroy
       redirect_to user_category_expense_category_path(@user_category, @expense_category), notice: 'Successfully delete the sub-category.'
     else
-      redirect_to user_category_expense_category_path(@user_category, @expense_category), notice: 'Unable to delete the category.try Again....'
+      redirect_to user_category_expense_category_path(@user_category, @expense_category), notice: 'Unable to delete the Expense Sub category.Try Again....'
     end
   end
 
