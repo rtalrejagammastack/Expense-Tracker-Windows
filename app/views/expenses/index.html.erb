@@ -1,5 +1,5 @@
 <%= render partial:'shared/heading', locals: { heading:"Expense Transactions" } %>
 
-<%= link_to "New Expense", new_transaction_path(type: "Expense"), class: "btn btn-primary btn-lg mb-4" %>
+<%= link_to "New Expense", new_transaction_path(type: "Expense"), class: "btn btn-primary btn-lg btn-rounded shadow mb-4" %>
 
 <%= render partial: 'shared/transactions', locals: { transactions: @expenses_by_date, income:false, expense: true } %>
