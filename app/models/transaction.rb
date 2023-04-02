@@ -7,7 +7,7 @@ class Transaction < ApplicationRecord
 
   acts_as_paranoid column: :destroyed_at
 
-  has_many_attached :documents
+  has_many_attached :documents, dependent: :destroy
 
   default_scope { order(created_at: :desc) }
   

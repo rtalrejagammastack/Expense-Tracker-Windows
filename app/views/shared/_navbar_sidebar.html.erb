@@ -65,8 +65,8 @@
         <!-- Avatar -->
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle hidden-arrow d-flex align-items-center" href="#" id="navbarDropdownMenuLink" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
-            <% if current_user.profile_image.attached? %>
-              <%= image_tag current_user.profile_image, class:'rounded-circle', height:'22', alt:'Avatar', loading:'lazy' %>
+            <% if current_user.avatar.attached? %>
+              <%= image_tag current_user.avatar, class:'rounded-circle', height:'22', alt:'Avatar', loading:'lazy' %>
             <% else %>
               <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img (31).webp" class="rounded-circle" height="22" alt="Avatar" loading="lazy" />
             <% end %>

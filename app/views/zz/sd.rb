@@ -86,3 +86,7 @@ end
 TransactionsController
 # expense_categories = ExpenseCategory.fetch_user_expense_categories(current_user.categories.pluck(:id))
 # expense_category = expense_categories.find_by_slug(params[:slug])
+
+
+has_one_attached :image, as: :imageable
+  has_many :images, as: :imageable, class_name: 'ActiveStorage::Attachment', dependent: :destroy
