@@ -30,6 +30,7 @@ class User < ApplicationRecord
   private
 
   def create_default_category
-    categories.create(name: 'Personal')
+    personal_category = categories.create(name: 'Personal')
+    personal_category.background.attach(io: File.open(Rails.root.join('app', 'assets', 'images', 'personal.png')), filename: 'personal.png', content_type: 'image/png')
   end
 end

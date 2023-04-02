@@ -13,7 +13,7 @@ class Transaction < ApplicationRecord
   
   # Validations
   validates :amount, presence: :true
-  validates :documents, content_type: ['image/png', 'image/jpg', 'image/jpeg', 'application/pdf','application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet']
+  # validates :documents, content_type: ['image/png', 'image/jpg', 'image/jpeg', 'application/pdf','application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet']
 
   # Associations
   belongs_to :status, class_name: 'TransactionStatus'
