@@ -7,10 +7,13 @@ class Transaction < ApplicationRecord
 
   acts_as_paranoid column: :destroyed_at
 
+  has_many_attached :documents
+
   default_scope { order(created_at: :desc) }
   
   # Validations
   validates :amount, presence: :true
+  validates :documents, content_type: ['image/png', 'image/jpg', 'image/jpeg', 'application/pdf','application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet']
 
   # Associations
   belongs_to :status, class_name: 'TransactionStatus'

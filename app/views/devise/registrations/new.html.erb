@@ -54,6 +54,13 @@
                       </div>
                     </div>
                   </div>
+                  
+                  <div class="col-md-8 mb-4">
+                    <div class="form-group mb-4 w-25">
+                      <%= f.label :profile_image, "Set Avatar", class: 'form-label' %>
+                      <%= f.file_field :profile_image %>
+                    </div>
+                  </div>
 
                   <div class="pt-1 mb-4 action">
                     <%= f.submit "Sign up",class:"btn btn-dark btn-lg btn-block" %>

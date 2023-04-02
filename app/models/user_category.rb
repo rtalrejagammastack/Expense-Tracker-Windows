@@ -7,6 +7,8 @@ class UserCategory < ApplicationRecord
 
   acts_as_paranoid column: :destroyed_at
 
+  has_one_attached :background
+
   default_scope { order(:name) }
 
   # Callbacks
@@ -15,6 +17,7 @@ class UserCategory < ApplicationRecord
   # Validations
   validates :name, presence: true
   validate :default_category_cannot_be_changed
+  validates :background, content_type: ['image/png', 'image/jpg', 'image/jpeg'], image: true
 
   # Associations
   belongs_to :user

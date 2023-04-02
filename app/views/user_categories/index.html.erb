@@ -4,19 +4,21 @@
   <% @user_categories.each do |user_category| %>
     <div class="col">
       <div class="card border border-dark mb-3">
+        <div class="bg-image hover-overlay ripple text-center" data-mdb-ripple-color="light">
+          <% if user_category.background.attached? %>
+            <%= image_tag user_category.background, class:'img-fluid' %>
+            <%= link_to user_category_path(user_category) do %>
+              <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+            <% end %>
+          <% end %>
+        </div>
         <div class="card-header">
           <%= user_category.name %>
         </div>
-        <%# <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
-          <img src="https://mdbcdn.b-cdn.net/img/new/standard/nature/111.webp" class="img-fluid"/>
-          <a href="#!">
-            <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
-          </a>
-        </div> %>
         <div class="card-body">
           <h5 class="card-title"> Transaction Sum: <%= user_category.transactions.sum(:amount) %> </h5>
           <ul class="list-group list-group-light list-group-small">
-            <li class="list-group-item px-4"> k </li>
+            <li class="list-group-item px-4">  </li>
           </ul>
         </div>
         <div class="card-footer bg-light px-3 d-flex justify-content-around">

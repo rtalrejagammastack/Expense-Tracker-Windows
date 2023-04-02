@@ -8,6 +8,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   acts_as_paranoid column: :destroyed_at
+
+  has_one_attached :profile_image, dependent: :destroy
   
   # Callbacks
   after_create :create_default_category
@@ -16,6 +18,7 @@ class User < ApplicationRecord
   validates :name, presence: true
   validates :email, presence: true, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }
   validates :phone_number, presence: true, length: { is: 10, message: 'must have 10 length.' }
+  validates :profile_image, content_type: ['image/png', 'image/jpg', 'image/jpeg'], image: true
 
   # Associations
   has_many :categories, class_name: 'UserCategory', foreign_key: 'user_id', dependent: :destroy
