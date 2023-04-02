@@ -7,6 +7,8 @@ class ExpenseSubCategory < ApplicationRecord
 
   acts_as_paranoid column: :destroyed_at
 
+  default_scope { order(:name) }
+
   # Callbacks
   after_validation :capital_first_letter
 
@@ -18,7 +20,7 @@ class ExpenseSubCategory < ApplicationRecord
   belongs_to :user_category, optional: true
   has_many :transactions, class_name: 'Transaction', foreign_key: 'expense_category_id', dependent: :destroy
 
-  scope :fetch_expense_sub_categories_with_nil, ->(user_category_id, expense_category_id) { where(user_category_id: [nil, user_category_id]).where(category_id: expense_category_id).order(:name).where(show: true) }
+  scope :fetch_expense_sub_categories_with_nil, ->(user_category_id, expense_category_id) { where(user_category_id: [nil, user_category_id]).where(category_id: expense_category_id) }
 
   def user?
     user_category&.user

@@ -14,7 +14,6 @@ ActiveRecord::Schema.define(version: 2023_04_02_053854) do
 
   create_table "expense_categories", force: :cascade do |t|
     t.string "name"
-    t.boolean "show", default: true
     t.integer "user_category_id"
     t.string "slug"
     t.datetime "created_at", precision: 6, null: false
@@ -27,7 +26,6 @@ ActiveRecord::Schema.define(version: 2023_04_02_053854) do
 
   create_table "expense_sub_categories", force: :cascade do |t|
     t.string "name"
-    t.boolean "show", default: true
     t.integer "category_id", null: false
     t.integer "user_category_id"
     t.datetime "created_at", precision: 6, null: false
@@ -106,8 +104,6 @@ ActiveRecord::Schema.define(version: 2023_04_02_053854) do
 
   create_table "user_categories", force: :cascade do |t|
     t.string "name"
-    t.decimal "expense", default: "0.0"
-    t.decimal "income", default: "0.0"
     t.integer "user_id", null: false
     t.string "slug"
     t.datetime "created_at", precision: 6, null: false

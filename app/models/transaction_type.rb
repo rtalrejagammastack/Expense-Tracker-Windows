@@ -4,5 +4,7 @@
 class TransactionType < ApplicationRecord
   acts_as_paranoid column: :destroyed_at
 
+  default_scope { order(:name) }
+
   has_many :transactions
 end

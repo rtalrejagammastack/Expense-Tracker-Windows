@@ -7,6 +7,8 @@ class UserCategory < ApplicationRecord
 
   acts_as_paranoid column: :destroyed_at
 
+  default_scope { order(:name) }
+
   # Callbacks
   after_validation :capital_first_letter
   
