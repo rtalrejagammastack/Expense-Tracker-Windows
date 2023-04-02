@@ -22,3 +22,9 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+
+main 
+Slug
+Transaction
+Gems
+Fix delete
