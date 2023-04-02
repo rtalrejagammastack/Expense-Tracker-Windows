@@ -64,7 +64,7 @@
               <p class="fw-normal mb-1"> <%= transaction.mode.name %> </p>
             </td>
             <td>
-              <p class="fw-normal mb-1"> <%= transaction.created_at.to_time.strftime("%H:%M") %> </p>
+              <p class="fw-normal mb-1"> <%= transaction.created_at.to_time.in_time_zone('Asia/Kolkata').strftime("%H:%M") %> </p>
             </td>
             <td>
               <p class="fw-normal mb-1"> <%= transaction.description.blank? ? "_" : transaction.description  %> </p>
