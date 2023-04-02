@@ -1,0 +1,31 @@
+<div class="scrollable-div">
+  <ul class="list-group">
+    <% @transaction.documents.each do |document| %>
+      <li class="list-group-item"> <%= link_to document.blob.filename, url_for(document.blob), target:'_blank' %> </li>
+    <% end %>
+  </ul>
+</div>
+
+<style>
+  .scrollable-div {
+    height: 200px;
+    overflow-y: scroll;
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    padding: 10px;
+    width:25%;
+  }
+
+  .list-group {
+    margin-bottom: 0;
+  }
+
+  .list-group-item {
+    border-radius: 0;
+    border: none;
+    padding:10px;
+  }
+  .scrollable-div::-webkit-scrollbar {
+   display: none;
+  }  
+</style>

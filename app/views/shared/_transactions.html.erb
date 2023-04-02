@@ -70,6 +70,7 @@
               <p class="fw-normal mb-1"> <%= transaction.description.blank? ? "_" : transaction.description  %> </p>
             </td>
             <td>
+              <%= link_to "Show", transaction_path(transaction), class:"btn btn-link btn-sm fw-bold" %>
               <%= link_to "Edit", edit_transaction_path(transaction, type: transaction.type.name), class:"btn btn-link btn-sm fw-bold" %>
               <%= link_to "Destroy", transaction_path(transaction), method: :delete, class:"btn btn-link btn-sm fw-bold", data: {
                   confirm: 'Are you sure to delete this Transaction?'

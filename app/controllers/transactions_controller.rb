@@ -4,7 +4,7 @@
 class TransactionsController < ApplicationController
   before_action :authenticate_user!
   before_action :find_user_category
-  before_action :find_transaction, only: %i[edit update destroy]
+  before_action :find_transaction, only: %i[edit update destroy show]
   before_action :fetch_transaction_form_data, only: %i[new edit]
 
   def new
@@ -23,13 +23,17 @@ class TransactionsController < ApplicationController
     end
     
     if @transaction.save
-      redirect_to new_transaction_path, notice: 'Transaction Successfully Created.'
+      redirect_to @transaction, notice: 'Transaction Successfully Created.'
     else
       render :new, status: :unprocessable_entity, alert: 'Unable to create Transaction.Try Again...'
     end
   end
 
   def edit
+  end
+
+  def show
+    
   end
 
   def update
@@ -87,7 +91,7 @@ class TransactionsController < ApplicationController
   private
 
   def transaction_params
-    params.require(:transaction).permit(:title, :receiver_name, :payer_name, :amount, :status_id, :mode_id, :user_category_id, :expense_category_id, :description, :document)
+    params.require(:transaction).permit(:title, :receiver_name, :payer_name, :amount, :status_id, :mode_id, :user_category_id, :expense_category_id, :description, :documents)
   end
 
   def find_user_category

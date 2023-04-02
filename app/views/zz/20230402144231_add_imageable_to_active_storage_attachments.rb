@@ -5,8 +5,3 @@ class AddImageableToActiveStorageAttachments < ActiveRecord::Migration[6.1]
     rename_column :active_storage_attachments, :record_type, :imageable_type
   end
 end
-
-
-<% @post.images.each do |image| %>
-  <%= image_tag url_for(image) %>
-<% end %>
