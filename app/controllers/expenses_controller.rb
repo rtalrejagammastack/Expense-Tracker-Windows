@@ -6,10 +6,8 @@ class ExpensesController < ApplicationController
   
   def index
     # ransak
-    # @q = current_user.transactions.ransack(params[:q])
-    # expenses = @q.result.group_by { |transaction| transaction.created_at.to_date }
-    # @expenses_by_date = expenses.map { |date, expense| [date, expense] }.to_h
-    @transactions = current_user.transactions.paginate(page: params[:page]) 
+    @q = current_user.transactions.ransack(params[:q])
+    @transactions = @q.result.paginate(page: params[:page])
     expenses = @transactions.group_by { |transaction| transaction.created_at.to_date }
     @expenses_by_date = expenses.map { |date, expense| [date, expense] }.to_h
   end

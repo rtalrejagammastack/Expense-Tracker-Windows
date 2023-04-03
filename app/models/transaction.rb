@@ -28,18 +28,7 @@ class Transaction < ApplicationRecord
   belongs_to :user_category
   belongs_to :expense_category, class_name: 'ExpenseSubCategory'
 
-  scope :belonging_to_user, ->(user) { where(user: current_user) }
-
-  def self.ransackable_associations(*)
-    ['user_category']
-  end
-
-  def self.ransackable_scopes(auth_object = nil)
-    [:belonging_to_user_category]
-  end
-
   def self.ransackable_attributes(auth_object = nil)
     ["amount", "created_at", "description", "destroyed_at", "expense_category_id", "id", "mode_id", "payer_id", "payer_name", "receiver_id", "receiver_name", "slug", "status_id", "title", "type_id", "updated_at", "user_category_id"]
   end
-
 end
