@@ -1,1 +1,10 @@
 <h1>Calendar</h1>
+<button id="show-toast-btn" class="btn btn-primary" >Show Notification</button>
+
+<script>
+  $(function() {
+    $('#show-toast-btn').on('click', function() {
+      $('#notification-toast').toast('show');
+    });
+  });
+</script>

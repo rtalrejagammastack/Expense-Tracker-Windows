@@ -1,6 +1,5 @@
 // app/assets/javascripts/notifications.js
 $(document).on('turbolinks:load', function() {
-  console.log("Hello")
   setInterval(function() {
     $.ajax({
       url: '/notifications',
@@ -8,9 +7,9 @@ $(document).on('turbolinks:load', function() {
       dataType: 'json',
       success: function(data) {
         if (data.unread_count > 0) {
-          console.log("sg")
           $('#notifications-count').html(data.unread_count);
           $('#notifications-bell').addClass('has-notifications');
+          $('#notification-toast').toast('show');
         } else {
           $('#notifications-bell').removeClass('has-notifications');
         }
