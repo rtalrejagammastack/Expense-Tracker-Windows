@@ -3,7 +3,7 @@
 # Expenses operations and its filters operations
 class ExpensesController < ApplicationController
   before_action :authenticate_user!
-  
+
   def index
     @q = current_user.transactions.ransack(params[:q])
     @transactions = @q.result.paginate(page: params[:page])

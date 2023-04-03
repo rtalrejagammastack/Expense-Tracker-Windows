@@ -7,7 +7,9 @@
   <%= f.search_field :title_cont %>
   <%= f.submit %>
 <% end %>
+
 <br/>
+
 <%= render partial: 'shared/transactions', locals: { transactions: @expenses_by_date, income:false, expense: true } %>
 
 <%= will_paginate @transactions, renderer: BootstrapPagination::Rails %>

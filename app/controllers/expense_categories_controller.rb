@@ -58,7 +58,7 @@ class ExpenseCategoriesController < ApplicationController
     if @expense_category.destroy
       redirect_to user_category_expense_categories_path(@user_category), notice: 'Successfully delete the category.'
     else
-      redirect_to category_expense_categories_path(@user_category), notice: 'Unable to delete the category.Try Again....'
+      redirect_to user_category_expense_categories_path(@user_category), notice: 'Unable to delete the category.Try Again....'
     end
   end
 

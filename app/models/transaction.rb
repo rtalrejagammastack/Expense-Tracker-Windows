@@ -15,6 +15,8 @@ class Transaction < ApplicationRecord
   
   scope :all_transactions, ->(current_user) { where('payer_id = ? OR receiver_id = ?', current_user.id, current_user.id) }
 
+  scope :group_by_date, -> { group_by { |transaction| transaction.created_at.to_date } }
+  
   # Validations
   validates :amount, presence: :true
   # validates :documents, content_type: ['image/png', 'image/jpg', 'image/jpeg', 'application/pdf','application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet']
