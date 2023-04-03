@@ -6,9 +6,10 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-# User.create([{name:"Rohit",email:"rohit@yopmail.com",password:"123456",phone_number:1234567891}])
+# User.create([{name:"Rohit",email:"fakegmailhumai@gmail.com",password:"123456",phone_number:1234567891}])
+User.create([{name:"Nikhil",email:"fufuchikna@gmail.com",password:"123456",phone_number:1234567891}])
 
-# User.find_by_name("Rohit").categories.create([{name:"Personal"},{name:"Family"},{name:"Hidden"}])
+# User.find_by_id(1).categories.create([{ name: "Family" }, { name: "Hidden" }, { name: "Friends" }, { name: "Office" }])
 
 # TransactionStatus.create([{name:"Complete"},{name:"Pending"}])
 
@@ -23,19 +24,18 @@
 # ExpenseCategory.find_by_name("Travel").sub_categories.create([{name:"Bus"},{name:"Taxi"},{name:"Airplane"},{name:"Train"}])
 
 
+# # User.first.transactions.new(title:"Food Item",amount:420,description:"Good Food",status_id:1,type_id:1,mode_id:2,expense_category_id:1,user_category_id:1,receiver_id:2).
+# # save 
+# # OR 
+# # User.first.categories.first.transactions.new(title:"Food Item",amount:420,description:"Good Food",status_id:1,type_id:1,mode_id:2,expense_category_id:1,payer_id:1,receiver_id:2).save
 
-# User.first.transactions.new(title:"Food Item",amount:420,description:"Good Food",status_id:1,type_id:1,mode_id:2,expense_category_id:1,user_category_id:1,receiver_id:2).
-# save 
-# OR 
-# User.first.categories.first.transactions.new(title:"Food Item",amount:420,description:"Good Food",status_id:1,type_id:1,mode_id:2,expense_category_id:1,payer_id:1,receiver_id:2).save
 
+# require 'faker'
 
-require 'faker'
-
-# Generate 50 random transactions
+# # Generate 50 random transactions
 50.times do
   title = Faker::Lorem.word
-  amount = Faker::Number.between(from: 100, to: 2000000)
+  amount = Faker::Number.between(from: 100, to: 2000)
   description = Faker::Lorem.paragraph
   payer_name = Faker::Name.name
   receiver_name = Faker::Name.name
