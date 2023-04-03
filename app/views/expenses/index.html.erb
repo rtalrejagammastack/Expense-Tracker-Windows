@@ -10,4 +10,4 @@
 <br/>
 <%= render partial: 'shared/transactions', locals: { transactions: @expenses_by_date, income:false, expense: true } %>
 
-<%#= will_paginate @transactions, renderer: BootstrapPagination::Rails %>
+<%= will_paginate @transactions, renderer: BootstrapPagination::Rails %>

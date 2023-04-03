@@ -5,7 +5,6 @@ class ExpensesController < ApplicationController
   before_action :authenticate_user!
   
   def index
-    # ransak
     @q = current_user.transactions.ransack(params[:q])
     @transactions = @q.result.paginate(page: params[:page])
     expenses = @transactions.group_by { |transaction| transaction.created_at.to_date }
