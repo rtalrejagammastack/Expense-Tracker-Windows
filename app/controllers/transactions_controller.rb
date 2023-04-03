@@ -23,6 +23,7 @@ class TransactionsController < ApplicationController
     end
     
     if @transaction.save
+      create_notification(current_user.id, "New #{@transaction.type.name} Transaction added: #{@transaction.amount}")
       redirect_to @transaction, notice: 'Transaction Successfully Created.'
     else
       render :new, status: :unprocessable_entity, alert: 'Unable to create Transaction.Try Again...'
@@ -59,6 +60,13 @@ class TransactionsController < ApplicationController
     else
       redirect_to home_index_path, alert: 'Transaction Deletion Failed.'
     end
+  end
+
+  def create_notification(user_id, content)
+    notification = Notification.new
+    notification.user_id = user_id
+    notification.content = content
+    notification.save
   end
   
   def fetch_expense_categories
