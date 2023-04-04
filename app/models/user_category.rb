@@ -25,6 +25,13 @@ class UserCategory < ApplicationRecord
   has_many :sub_categories, through: :expense_categories
   has_many :transactions, dependent: :destroy
 
+  def is_Valid?
+    name!="Personal"
+  end
+  
+  def valid_user?
+    user.nil?
+  end
   private 
 
   def default_category_cannot_be_changed
@@ -36,4 +43,5 @@ class UserCategory < ApplicationRecord
       errors.add(:base, 'cannot be destroyed')
     end
   end
+
 end
