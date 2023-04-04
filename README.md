@@ -24,7 +24,7 @@ Things you may want to cover:
 * ...
 
 main 
-Slug
-Transaction
-Gems
-Notification Feature
+-> Slug
+-> Transaction
+-> Gems
+-> Notification Feature      -> Modifications
