@@ -80,6 +80,7 @@ GEM
       xpath (~> 3.2)
     chartkick (5.0.1)
     concurrent-ruby (1.2.2)
+    connection_pool (2.4.0)
     crass (1.0.6)
     date (3.3.3)
     devise (4.9.0)
@@ -190,6 +191,8 @@ GEM
       activerecord (>= 6.1.5)
       activesupport (>= 6.1.5)
       i18n
+    redis-client (0.14.1)
+      connection_pool
     regexp_parser (2.7.0)
     responders (3.1.0)
       actionpack (>= 5.2)
@@ -213,6 +216,11 @@ GEM
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
     semantic_range (3.0.0)
+    sidekiq (7.0.7)
+      concurrent-ruby (< 2)
+      connection_pool (>= 2.3.0)
+      rack (>= 2.2.4)
+      redis-client (>= 0.11.0)
     sprockets (4.2.0)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
@@ -284,6 +292,7 @@ DEPENDENCIES
   ransack
   sass-rails (>= 6)
   selenium-webdriver (>= 4.0.0.rc1)
+  sidekiq
   sqlite3 (~> 1.4)
   turbolinks (~> 5)
   tzinfo-data

@@ -6,4 +6,8 @@ class TransactionMailer < ApplicationMailer
 
     mail to: @user.email, subject: "New Transaction:"
   end
+
+  def daily_transaction
+    attachments.inline['image.jpg'] = File.read('/path/to/image.jpg')
+  end
 end

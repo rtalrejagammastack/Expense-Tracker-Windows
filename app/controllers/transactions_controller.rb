@@ -24,7 +24,7 @@ class TransactionsController < ApplicationController
     
     if @transaction.save
       redirect_to @transaction, notice: 'Transaction Successfully Created.'
-      TransactionMailer.new_transaction(@transaction, current_user).deliver_now
+      TransactionJob.perform_later(@transaction, current_user)
     else
       render :new, status: :unprocessable_entity, alert: 'Unable to create Transaction.Try Again...'
     end
