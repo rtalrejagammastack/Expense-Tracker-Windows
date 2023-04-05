@@ -29,6 +29,7 @@ gem 'jbuilder', '~> 2.7'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
 
+gem 'jquery'
 gem 'devise'
 gem 'awesome_print'
 gem 'friendly_id', '~> 5.1.0'
