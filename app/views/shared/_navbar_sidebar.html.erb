@@ -75,6 +75,12 @@
             <li> 
               <%= link_to "My Profile", edit_user_registration_path, class:'dropdown-item' %>
             </li>
+            <li> 
+              <%#= link_to "Profile", current_user %>
+            </li>
+            <li> 
+              <%#= link_to "Settings", edit_user_path(@user) %>
+            </li>
             <li>
               <%= link_to "Logout",destroy_user_session_path ,class:"dropdown-item" ,method: :delete %>
             </li>
